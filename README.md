@@ -1,5 +1,5 @@
-# Dimension Chain
-Dimension Chain/ Dimension Network
+# Dimension Network
+Distributed Application Service Network
 
 # 項目簡介
 # PROJECT BRIEF 
