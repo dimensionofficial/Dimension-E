@@ -1,0 +1,45 @@
+"E:\SoftwareChen\CLion 2018.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=F:/MinGw/bin/make.exe -DCMAKE_C_COMPILER=F:/MinGw/bin/gcc.exe -DCMAKE_CXX_COMPILER=F:/MinGw/bin/g++.exe -G "CodeBlocks - MinGW Makefiles" F:\chenCode\eos
+-- Found Secp256k1: Secp256k1_LIBRARY-NOTFOUND
+-- Using custom FindBoost.cmake
+CMake Error at libraries/fc/CMakeModules/FindBoost.cmake:1129 (message):
+  Unable to find the requested Boost libraries.
+
+  Unable to find the Boost header files.  Please set BOOST_ROOT to the root
+  directory containing Boost or BOOST_INCLUDEDIR to the directory containing
+  Boost's headers.
+Call Stack (most recent call first):
+  CMakeLists.txt:107 (FIND_PACKAGE)
+
+
+-- Configuring EOSIO on WIN32
+-- tcl INCLUDE PATH: /include
+-- Could NOT find Tclsh (missing: TCL_TCLSH) 
+-- Could NOT find TCL (missing: TCL_LIBRARY) 
+-- Could NOT find TCLTK (missing: TCL_LIBRARY TK_LIBRARY TK_INCLUDE_PATH) 
+-- Could NOT find TK (missing: TK_LIBRARY TK_INCLUDE_PATH) 
+-- tcl_library: TCL_LIBRARY-NOTFOUND
+-- binaryen building with -std=c++11
+CMake Warning at externals/binaryen/CMakeLists.txt:131 (message):
+  Error running file on dummy executable
+
+
+-- binaryen building with -Wall
+-- binaryen building with -Werror
+-- binaryen building with -Wextra
+-- binaryen building with -Wno-unused-parameter
+-- binaryen building with -fno-omit-frame-pointer
+-- binaryen building with -D_GNU_SOURCE
+-- binaryen building with -O0
+-- binaryen building with -g3
+-- Using 'SYS' as CORE symbol name
+-- Using 'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV' as public key for 'eosio' account
+CMake Error at CMakeModules/FindWasm.cmake:10 (message):
+  WASM not found and don't know where to look, please specify WASM_ROOT
+Call Stack (most recent call first):
+  CMakeModules/wasm.cmake:1 (find_package)
+  CMakeLists.txt:220 (include)
+
+
+-- Configuring incomplete, errors occurred!
+See also "F:/chenCode/eos/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "F:/chenCode/eos/cmake-build-debug/CMakeFiles/CMakeError.log".
