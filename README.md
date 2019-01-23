@@ -1,5 +1,7 @@
 # Dimension Network
-Distributed Application Service Network
+Distributed Application Service Network    
+
+[Official Website](http://dimensionchain.io/)
 
 # 項目簡介
 # PROJECT BRIEF 
