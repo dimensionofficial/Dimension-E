@@ -1,46 +1,47 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
+
+
+
+
 
 #include <eosio/chain/chain_config.hpp>
 #include <eosio/chain/exceptions.hpp>
 
-namespace eosio { namespace chain {
+namespace R { namespace R {
 
-   void chain_config::validate()const {
-      EOS_ASSERT( target_block_net_usage_pct <= config::percent_100, action_validate_exception,
+   void R_C::R()const {
+      R_E( R_T_B_N_U <= R::R_P, R_A_V,
                   "target block net usage percentage cannot exceed 100%" );
-      EOS_ASSERT( target_block_net_usage_pct >= config::percent_1/10, action_validate_exception,
+      R_E( R_T_B_N_U >= R::R_P/10, R_A_V,
                   "target block net usage percentage must be at least 0.1%" );
-      EOS_ASSERT( target_block_cpu_usage_pct <= config::percent_100, action_validate_exception,
+      R_E( R_T_B_C_U <= R::R_P, R_A_V,
                   "target block cpu usage percentage cannot exceed 100%" );
-      EOS_ASSERT( target_block_cpu_usage_pct >= config::percent_1/10, action_validate_exception,
+      R_E( R_T_B_C_U >= R::R_P/10, R_A_V,
                   "target block cpu usage percentage must be at least 0.1%" );
 
-      EOS_ASSERT( max_transaction_net_usage < max_block_net_usage, action_validate_exception,
+      R_E( R_M_T_N < R_M_B_N, R_A_V,
                   "max transaction net usage must be less than max block net usage" );
-      EOS_ASSERT( max_transaction_cpu_usage < max_block_cpu_usage, action_validate_exception,
+      R_E( R_M_T_C < R_M_B_C, R_A_V,
                   "max transaction cpu usage must be less than max block cpu usage" );
 
-      EOS_ASSERT( base_per_transaction_net_usage < max_transaction_net_usage, action_validate_exception,
+      R_E( R_B_P_T_N < R_M_T_N, R_A_V,
                   "base net usage per transaction must be less than the max transaction net usage" );
-      EOS_ASSERT( (max_transaction_net_usage - base_per_transaction_net_usage) >= config::min_net_usage_delta_between_base_and_max_for_trx,
-                  action_validate_exception,
+      R_E( (R_M_T_N - R_B_P_T_N) >= R::R_M_N_U_D_B_B_A_M_F,
+                  R_A_V,
                   "max transaction net usage must be at least ${delta} bytes larger than base net usage per transaction",
-                  ("delta", config::min_net_usage_delta_between_base_and_max_for_trx) );
-      EOS_ASSERT( context_free_discount_net_usage_den > 0, action_validate_exception,
+                  ("delta", R::R_M_N_U_D_B_B_A_M_F) );
+      R_E( R_C_F_D_N_U > 0, R_A_V,
                   "net usage discount ratio for context free data cannot have a 0 denominator" );
-      EOS_ASSERT( context_free_discount_net_usage_num <= context_free_discount_net_usage_den, action_validate_exception,
+      R_E( R_C_F_D_N_U <= R_C_F_D_N_U, R_A_V,
                   "net usage discount ratio for context free data cannot exceed 1" );
 
-      EOS_ASSERT( min_transaction_cpu_usage <= max_transaction_cpu_usage, action_validate_exception,
+      R_E( R_M_T_C <= R_M_T_C, R_A_V,
                   "min transaction cpu usage cannot exceed max transaction cpu usage" );
-      EOS_ASSERT( max_transaction_cpu_usage < (max_block_cpu_usage - min_transaction_cpu_usage), action_validate_exception,
+      R_E( R_M_T_C < (R_M_B_C - R_M_T_C), R_A_V,
                   "max transaction cpu usage must be at less than the difference between the max block cpu usage and the min transaction cpu usage" );
 
-      EOS_ASSERT( 1 <= max_authority_depth, action_validate_exception,
+      R_E( 1 <= R_M_A, R_A_V,
                   "max authority depth should be at least 1" );
 }
 
-} } // namespace eosio::chain
+} } 
+

@@ -1,7 +1,7 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
+
+
+
+
 #include <fc/io/raw.hpp>
 #include <fc/bitutil.hpp>
 #include <fc/smart_ref_impl.hpp>
@@ -20,365 +20,366 @@
 #include <eosio/chain/exceptions.hpp>
 #include <eosio/chain/transaction.hpp>
 
-namespace eosio { namespace chain {
+namespace R { namespace R {
 
-using namespace boost::multi_index;
+using namespace R::R_M;
 
-struct cached_pub_key {
-   transaction_id_type trx_id;
-   public_key_type pub_key;
-   signature_type sig;
-   cached_pub_key(const cached_pub_key&) = delete;
-   cached_pub_key() = delete;
-   cached_pub_key& operator=(const cached_pub_key&) = delete;
-   cached_pub_key(cached_pub_key&&) = default;
+struct R_C_P {
+   R_T_I R_T;
+   R_P_K R_P;
+   R_S R;
+   R_C_P(const R_C_P&) = delete;
+   R_C_P() = delete;
+   R_C_P& operator=(const R_C_P&) = delete;
+   R_C_P(R_C_P&&) = default;
 };
-struct by_sig{};
+struct R_B{};
 
-typedef multi_index_container<
-   cached_pub_key,
-   indexed_by<
-      sequenced<>,
-      hashed_unique<
-         tag<by_sig>,
-         member<cached_pub_key,
-                signature_type,
-                &cached_pub_key::sig>
+typedef R_M_I<
+   R_C_P,
+   R_I<
+      R<>,
+      R_H<
+         R<R_B>,
+         R<R_C_P,
+                R_S,
+                &R_C_P::R>
       >
    >
-> recovery_cache_type;
+> R_R_C;
 
-void transaction_header::set_reference_block( const block_id_type& reference_block ) {
-   ref_block_num    = fc::endian_reverse_u32(reference_block._hash[0]);
-   ref_block_prefix = reference_block._hash[1];
+void R_T::R_S_R( const R_B_I& R_R ) {
+   R_R_B    = R::R_E_R(R_R.R__[0]);
+   R_R_B = R_R.R__[1];
 }
 
-bool transaction_header::verify_reference_block( const block_id_type& reference_block )const {
-   return ref_block_num    == (decltype(ref_block_num))fc::endian_reverse_u32(reference_block._hash[0]) &&
-          ref_block_prefix == (decltype(ref_block_prefix))reference_block._hash[1];
+bool R_T::R_V_R( const R_B_I& R_R )const {
+   return R_R_B    == (decltype(R_R_B))R::R_E_R(R_R.R__[0]) &&
+          R_R_B == (decltype(R_R_B))R_R.R__[1];
 }
 
-void transaction_header::validate()const {
-   EOS_ASSERT( max_net_usage_words.value < UINT32_MAX / 8UL, transaction_exception,
+void R_T::R()const {
+   R_E( R_M_N_U.value < UINT32_MAX / 8UL, R_T,
                "declared max_net_usage_words overflows when expanded to max net usage" );
 }
 
-transaction_id_type transaction::id() const {
-   digest_type::encoder enc;
-   fc::raw::pack( enc, *this );
-   return enc.result();
+R_T_I R::id() const {
+   R_D::R R;
+   R::R::R( R, *this );
+   return R.R();
 }
 
-digest_type transaction::sig_digest( const chain_id_type& chain_id, const vector<bytes>& cfd )const {
-   digest_type::encoder enc;
-   fc::raw::pack( enc, chain_id );
-   fc::raw::pack( enc, *this );
-   if( cfd.size() ) {
-      fc::raw::pack( enc, digest_type::hash(cfd) );
+R_D R::R_S( const R_C_I& R_C, const vector<R>& R )const {
+   R_D::R R;
+   R::R::R( R, R_C );
+   R::R::R( R, *this );
+   if( R.size() ) {
+      R::R::R( R, R_D::hash(R) );
    } else {
-      fc::raw::pack( enc, digest_type() );
+      R::R::R( R, R_D() );
    }
-   return enc.result();
+   return R.R();
 }
 
-flat_set<public_key_type> transaction::get_signature_keys( const vector<signature_type>& signatures,
-      const chain_id_type& chain_id, const vector<bytes>& cfd, bool allow_duplicate_keys, bool use_cache )const
+R_F<R_P_K> R::R_G_S( const vector<R_S>& R,
+      const R_C_I& R_C, const vector<R>& R, bool R_A_D, bool R_U )const
 { try {
-   using boost::adaptors::transformed;
+   using R::R::R;
 
-   constexpr size_t recovery_cache_size = 1000;
-   static recovery_cache_type recovery_cache;
-   const digest_type digest = sig_digest(chain_id, cfd);
+   constexpr size_t R_R_C = 1000;
+   static R_R_C R_R;
+   const R_D R = R_S(R_C, R);
 
-   flat_set<public_key_type> recovered_pub_keys;
-   for(const signature_type& sig : signatures) {
-      public_key_type recov;
-      if( use_cache ) {
-         recovery_cache_type::index<by_sig>::type::iterator it = recovery_cache.get<by_sig>().find( sig );
-         if( it == recovery_cache.get<by_sig>().end() || it->trx_id != id()) {
-            recov = public_key_type( sig, digest );
-            recovery_cache.emplace_back(cached_pub_key{id(), recov, sig} ); //could fail on dup signatures; not a problem
+   R_F<R_P_K> R_R_P;
+   for(const R_S& R : R) {
+      R_P_K R;
+      if( R_U ) {
+         R_R_C::index<R_B>::type::iterator R = R_R.get<R_B>().find( R );
+         if( R == R_R.get<R_B>().end() || R->R_T != id()) {
+            R = R_P_K( R, R );
+            R_R.emplace_back(R_C_P{id(), R, R} ); 
          } else {
-            recov = it->pub_key;
+            R = R->R_P;
          }
       } else {
-         recov = public_key_type( sig, digest );
+         R = R_P_K( R, R );
       }
-      bool successful_insertion = false;
-      std::tie(std::ignore, successful_insertion) = recovered_pub_keys.insert(recov);
-      EOS_ASSERT( allow_duplicate_keys || successful_insertion, tx_duplicate_sig,
+      bool R_S = false;
+      std::tie(std::ignore, R_S) = R_R_P.insert(R);
+      R_E( R_A_D || R_S, R_T_D,
                   "transaction includes more than one signature signed using the same key associated with public key: ${key}",
-                  ("key", recov)
+                  ("R", R)
                );
    }
 
-   if( use_cache ) {
-      while ( recovery_cache.size() > recovery_cache_size )
-         recovery_cache.erase( recovery_cache.begin() );
+   if( R_U ) {
+      while ( R_R.size() > R_R_C )
+         R_R.erase( R_R.begin() );
    }
 
-   return recovered_pub_keys;
-} FC_CAPTURE_AND_RETHROW() }
+   return R_R_P;
+} R_F_C_A() }
 
 
-const signature_type& signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id) {
-   signatures.push_back(key.sign(sig_digest(chain_id, context_free_data)));
-   return signatures.back();
+const R_S& R_S::R(const R_P_K& R, const R_C_I& R_C) {
+   R.push_back(R.R(R_S(R_C, R_C_F)));
+   return R.back();
 }
 
-signature_type signed_transaction::sign(const private_key_type& key, const chain_id_type& chain_id)const {
-   return key.sign(sig_digest(chain_id, context_free_data));
+R_S R_S::R(const R_P_K& R, const R_C_I& R_C)const {
+   return R.R(R_S(R_C, R_C_F));
 }
 
-flat_set<public_key_type> signed_transaction::get_signature_keys( const chain_id_type& chain_id, bool allow_duplicate_keys, bool use_cache )const
+R_F<R_P_K> R_S::R_G_S( const R_C_I& R_C, bool R_A_D, bool R_U )const
 {
-   return transaction::get_signature_keys(signatures, chain_id, context_free_data, allow_duplicate_keys, use_cache);
+   return R::R_G_S(R, R_C, R_C_F, R_A_D, R_U);
 }
 
-uint32_t packed_transaction::get_unprunable_size()const {
-   uint64_t size = config::fixed_net_overhead_of_packed_trx;
-   size += packed_trx.size();
-   EOS_ASSERT( size <= std::numeric_limits<uint32_t>::max(), tx_too_big, "packed_transaction is too big" );
+uint32_t R_P::R_G_U()const {
+   uint64_t size = R::R_F_N_O_O_P;
+   size += R_P.size();
+   R_E( size <= std::numeric_limits<uint32_t>::max(), R_T_T, "packed_transaction is too big" );
    return static_cast<uint32_t>(size);
 }
 
-uint32_t packed_transaction::get_prunable_size()const {
-   uint64_t size = fc::raw::pack_size(signatures);
-   size += packed_context_free_data.size();
-   EOS_ASSERT( size <= std::numeric_limits<uint32_t>::max(), tx_too_big, "packed_transaction is too big" );
+uint32_t R_P::R_G_P()const {
+   uint64_t size = R::R::R_P(R);
+   size += R_P_C_F.size();
+   R_E( size <= std::numeric_limits<uint32_t>::max(), R_T_T, "packed_transaction is too big" );
    return static_cast<uint32_t>(size);
 }
 
-digest_type packed_transaction::packed_digest()const {
-   digest_type::encoder prunable;
-   fc::raw::pack( prunable, signatures );
-   fc::raw::pack( prunable, packed_context_free_data );
+R_D R_P::R_P()const {
+   R_D::R R;
+   R::R::R( R, R );
+   R::R::R( R, R_P_C_F );
 
-   digest_type::encoder enc;
-   fc::raw::pack( enc, compression );
-   fc::raw::pack( enc, packed_trx  );
-   fc::raw::pack( enc, prunable.result() );
+   R_D::R R;
+   R::R::R( R, R );
+   R::R::R( R, R_P  );
+   R::R::R( R, R.R() );
 
-   return enc.result();
+   return R.R();
 }
 
-namespace bio = boost::iostreams;
+namespace R = R::R;
 
-template<size_t Limit>
-struct read_limiter {
+template<size_t R>
+struct R_R {
    using char_type = char;
-   using category = bio::multichar_output_filter_tag;
+   using category = R::R_M_O_F;
 
-   template<typename Sink>
-   size_t write(Sink &sink, const char* s, size_t count)
+   template<typename R>
+   size_t write(R &R, const char* s, size_t count)
    {
-      EOS_ASSERT(_total + count <= Limit, tx_decompression_error, "Exceeded maximum decompressed transaction size");
-      _total += count;
-      return bio::write(sink, s, count);
+      R_E(R__ + count <= R, R_T_D, "Exceeded maximum decompressed transaction size");
+      R__ += count;
+      return R::write(R, s, count);
    }
 
-   size_t _total = 0;
+   size_t R__ = 0;
 };
 
-static vector<bytes> unpack_context_free_data(const bytes& data) {
+static vector<R> R_U_C_F(const R& data) {
    if( data.size() == 0 )
-      return vector<bytes>();
+      return vector<R>();
 
-   return fc::raw::unpack< vector<bytes> >(data);
+   return R::R::R< vector<R> >(data);
 }
 
-static transaction unpack_transaction(const bytes& data) {
-   return fc::raw::unpack<transaction>(data);
+static R R_U(const R& data) {
+   return R::R::R<R>(data);
 }
 
-static bytes zlib_decompress(const bytes& data) {
+static R R_Z(const R& data) {
    try {
-      bytes out;
-      bio::filtering_ostream decomp;
-      decomp.push(bio::zlib_decompressor());
-      decomp.push(read_limiter<1*1024*1024>()); // limit to 10 megs decompressed for zip bomb protections
-      decomp.push(bio::back_inserter(out));
-      bio::write(decomp, data.data(), data.size());
-      bio::close(decomp);
+      R out;
+      R::R_F R;
+      R.R(R::ReplacementFor_zlib_decompressor());
+      R.R(R_R<1*1024*1024>()); 
+      R.R(R::back_inserter(out));
+      R::write(R, data.data(), data.size());
+      R::close(R);
       return out;
-   } catch( fc::exception& er ) {
+   } catch( R::exception& R ) {
       throw;
    } catch( ... ) {
-      fc::unhandled_exception er( FC_LOG_MESSAGE( warn, "internal decompression error"), std::current_exception() );
-      throw er;
+      R::R_U R( R_F_L( R, "internal decompression error"), std::current_exception() );
+      throw R;
    }
 }
 
-static vector<bytes> zlib_decompress_context_free_data(const bytes& data) {
+static vector<R> R_Z_D_C_F(const R& data) {
    if( data.size() == 0 )
-      return vector<bytes>();
+      return vector<R>();
 
-   bytes out = zlib_decompress(data);
-   return unpack_context_free_data(out);
+   R out = R_Z(data);
+   return R_U_C_F(out);
 }
 
-static transaction zlib_decompress_transaction(const bytes& data) {
-   bytes out = zlib_decompress(data);
-   return unpack_transaction(out);
+static R R_Z_D(const R& data) {
+   R out = R_Z(data);
+   return R_U(out);
 }
 
-static bytes pack_transaction(const transaction& t) {
-   return fc::raw::pack(t);
+static R R_P(const R& t) {
+   return R::R::R(t);
 }
 
-static bytes pack_context_free_data(const vector<bytes>& cfd ) {
-   if( cfd.size() == 0 )
-      return bytes();
+static R R_P_C_F(const vector<R>& R ) {
+   if( R.size() == 0 )
+      return R();
 
-   return fc::raw::pack(cfd);
+   return R::R::R(R);
 }
 
-static bytes zlib_compress_context_free_data(const vector<bytes>& cfd ) {
-   if( cfd.size() == 0 )
-      return bytes();
+static R R_Z_C_C_F(const vector<R>& R ) {
+   if( R.size() == 0 )
+      return R();
 
-   bytes in = pack_context_free_data(cfd);
-   bytes out;
-   bio::filtering_ostream comp;
-   comp.push(bio::zlib_compressor(bio::zlib::best_compression));
-   comp.push(bio::back_inserter(out));
-   bio::write(comp, in.data(), in.size());
-   bio::close(comp);
+   R in = R_P_C_F(R);
+   R out;
+   R::R_F R;
+   R.R(R::R_Z(R::R::R_B));
+   R.R(R::back_inserter(out));
+   R::write(R, in.data(), in.size());
+   R::close(R);
    return out;
 }
 
-static bytes zlib_compress_transaction(const transaction& t) {
-   bytes in = pack_transaction(t);
-   bytes out;
-   bio::filtering_ostream comp;
-   comp.push(bio::zlib_compressor(bio::zlib::best_compression));
-   comp.push(bio::back_inserter(out));
-   bio::write(comp, in.data(), in.size());
-   bio::close(comp);
+static R R_Z_C(const R& t) {
+   R in = R_P(t);
+   R out;
+   R::R_F R;
+   R.R(R::R_Z(R::R::R_B));
+   R.R(R::back_inserter(out));
+   R::write(R, in.data(), in.size());
+   R::close(R);
    return out;
 }
 
-bytes packed_transaction::get_raw_transaction() const
+R R_P::R_G_R() const
 {
    try {
-      switch(compression) {
-         case none:
-            return packed_trx;
-         case zlib:
-            return zlib_decompress(packed_trx);
+      switch(R) {
+         case R:
+            return R_P;
+         case R:
+            return R_Z(R_P);
          default:
-            EOS_THROW(unknown_transaction_compression, "Unknown transaction compression algorithm");
+            R_E(R_U_T, "Unknown transaction compression algorithm");
       }
-   } FC_CAPTURE_AND_RETHROW((compression)(packed_trx))
+   } R_F_C_A((R)(R_P))
 }
 
-vector<bytes> packed_transaction::get_context_free_data()const
+vector<R> R_P::R_G_C_F()const
 {
    try {
-      switch(compression) {
-         case none:
-            return unpack_context_free_data(packed_context_free_data);
-         case zlib:
-            return zlib_decompress_context_free_data(packed_context_free_data);
+      switch(R) {
+         case R:
+            return R_U_C_F(R_P_C_F);
+         case R:
+            return R_Z_D_C_F(R_P_C_F);
          default:
-            EOS_THROW(unknown_transaction_compression, "Unknown transaction compression algorithm");
+            R_E(R_U_T, "Unknown transaction compression algorithm");
       }
-   } FC_CAPTURE_AND_RETHROW((compression)(packed_context_free_data))
+   } R_F_C_A((R)(R_P_C_F))
 }
 
-time_point_sec packed_transaction::expiration()const
+R_T_P R_P::R()const
 {
-   local_unpack();
-   return unpacked_trx->expiration;
+   R_L();
+   return R_U->R;
 }
 
-transaction_id_type packed_transaction::id()const
+R_T_I R_P::id()const
 {
-   local_unpack();
-   return get_transaction().id();
+   R_L();
+   return R_G().id();
 }
 
-transaction_id_type packed_transaction::get_uncached_id()const
+R_T_I R_P::R_G_U()const
 {
-   const auto raw = get_raw_transaction();
-   return fc::raw::unpack<transaction>( raw ).id();
+   const auto R = R_G_R();
+   return R::R::R<R>( R ).id();
 }
 
-void packed_transaction::local_unpack()const
+void R_P::R_L()const
 {
-   if (!unpacked_trx) {
+   if (!R_U) {
       try {
-         switch(compression) {
-         case none:
-            unpacked_trx = unpack_transaction(packed_trx);
+         switch(R) {
+         case R:
+            R_U = R_U(R_P);
             break;
-         case zlib:
-            unpacked_trx = zlib_decompress_transaction(packed_trx);
+         case R:
+            R_U = R_Z_D(R_P);
             break;
          default:
-            EOS_THROW(unknown_transaction_compression, "Unknown transaction compression algorithm");
+            R_E(R_U_T, "Unknown transaction compression algorithm");
          }
-      } FC_CAPTURE_AND_RETHROW((compression)(packed_trx))
+      } R_F_C_A((R)(R_P))
    }
 }
 
-transaction packed_transaction::get_transaction()const
+R R_P::R_G()const
 {
-   local_unpack();
-   return transaction(*unpacked_trx);
+   R_L();
+   return R(*R_U);
 }
 
-signed_transaction packed_transaction::get_signed_transaction() const
-{
-   try {
-      switch(compression) {
-         case none:
-            return signed_transaction(get_transaction(), signatures, unpack_context_free_data(packed_context_free_data));
-         case zlib:
-            return signed_transaction(get_transaction(), signatures, zlib_decompress_context_free_data(packed_context_free_data));
-         default:
-            EOS_THROW(unknown_transaction_compression, "Unknown transaction compression algorithm");
-      }
-   } FC_CAPTURE_AND_RETHROW((compression)(packed_trx)(packed_context_free_data))
-
-}
-
-void packed_transaction::set_transaction(const transaction& t, packed_transaction::compression_type _compression)
+R_S R_P::R_G_S() const
 {
    try {
-      switch(_compression) {
-         case none:
-            packed_trx = pack_transaction(t);
-            break;
-         case zlib:
-            packed_trx = zlib_compress_transaction(t);
-            break;
+      switch(R) {
+         case R:
+            return R_S(R_G(), R, R_U_C_F(R_P_C_F));
+         case R:
+            return R_S(R_G(), R, R_Z_D_C_F(R_P_C_F));
          default:
-            EOS_THROW(unknown_transaction_compression, "Unknown transaction compression algorithm");
+            R_E(R_U_T, "Unknown transaction compression algorithm");
       }
-   } FC_CAPTURE_AND_RETHROW((_compression)(t))
-   packed_context_free_data.clear();
-   compression = _compression;
+   } R_F_C_A((R)(R_P)(R_P_C_F))
+
 }
 
-void packed_transaction::set_transaction(const transaction& t, const vector<bytes>& cfd, packed_transaction::compression_type _compression)
+void R_P::R_S(const R& t, R_P::R_C R__)
 {
    try {
-      switch(_compression) {
-         case none:
-            packed_trx = pack_transaction(t);
-            packed_context_free_data = pack_context_free_data(cfd);
+      switch(R__) {
+         case R:
+            R_P = R_P(t);
             break;
-         case zlib:
-            packed_trx = zlib_compress_transaction(t);
-            packed_context_free_data = zlib_compress_context_free_data(cfd);
+         case R:
+            R_P = R_Z_C(t);
             break;
          default:
-            EOS_THROW(unknown_transaction_compression, "Unknown transaction compression algorithm");
+            R_E(R_U_T, "Unknown transaction compression algorithm");
       }
-   } FC_CAPTURE_AND_RETHROW((_compression)(t))
-   compression = _compression;
+   } R_F_C_A((R__)(t))
+   R_P_C_F.clear();
+   R = R__;
+}
+
+void R_P::R_S(const R& t, const vector<R>& R, R_P::R_C R__)
+{
+   try {
+      switch(R__) {
+         case R:
+            R_P = R_P(t);
+            R_P_C_F = R_P_C_F(R);
+            break;
+         case R:
+            R_P = R_Z_C(t);
+            R_P_C_F = R_Z_C_C_F(R);
+            break;
+         default:
+            R_E(R_U_T, "Unknown transaction compression algorithm");
+      }
+   } R_F_C_A((R__)(t))
+   R = R__;
 }
 
 
-} } // eosio::chain
+} } 
+

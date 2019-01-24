@@ -189,27 +189,7 @@ namespace ReplacementFor_eosio {
       bool ReplacementFor_connected();
       void ReplacementFor_close();
 
-
-
-        void ReplacementFor_flush_queues();
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
+      void ReplacementFor_flush_queues();
       bool ReplacementFor_process_next_message(ReplacementFor_pixel_plugin_impl& ReplacementFor_impl, uint64_t ReplacementFor_count, uint32_t ReplacementFor_message_length);
       bool ReplacementFor_send_response(uint64_t ReplacementFor_count, const ReplacementFor_string& ReplacementFor_msg);
 
@@ -670,9 +650,6 @@ namespace ReplacementFor_eosio {
       {
 
              ReplacementFor_cc.ReplacementFor_accepted_block.ReplacementFor_connect(  ReplacementFor_boost::ReplacementFor_bind(&ReplacementFor_pixel_plugin_impl::ReplacementFor_accepted_block, ReplacementFor_my.get(), ReplacementFor__1));
-
-
-
 
       }
    }
