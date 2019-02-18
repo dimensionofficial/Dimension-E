@@ -1,5 +1,5 @@
 # Dimension Network
-Distributed Application Service Network    
+Decentralized Application Service Network    
 
 [Official Website](http://dimensionchain.io/)
 
