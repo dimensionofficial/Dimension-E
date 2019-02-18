@@ -1,38 +1,39 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
+
+
+
+
 #pragma once
 #include <appbase/application.hpp>
 #include <eosio/chain_plugin/chain_plugin.hpp>
 
-namespace eosio {
-   using namespace appbase;
+namespace R {
+   using namespace R;
 
-   class pixel_plugin : public appbase::plugin<pixel_plugin>
+   class R_P : public R::R<R_P>
    {
       public:
-        pixel_plugin();
-        virtual ~pixel_plugin();
+        R_P();
+        virtual ~R_P();
 
-        APPBASE_PLUGIN_REQUIRES((chain_plugin))
-        virtual void set_program_options(options_description& cli, options_description& cfg) override;
+        R((R_C))
+        virtual void R_S_P(R_O& R, R_O& R) override;
 
-        void plugin_initialize(const variables_map& options);
-        void plugin_startup();
-        void plugin_shutdown();
+        void R_P(const R_V& R);
+        void R_P();
+        void R_P();
 
-        static void handle_exception(const char *call_name, const string& cmd, std::function<void(const std::string&)> cb);
+        static void R_H(const char *R_C, const string& R, std::function<void(const std::string&)> R);
 
       public:
-        static string contract_name;
-        static string team_name;
+        static string R_C;
+        static string R_T;
 
       private:
-        std::unique_ptr<class pixel_plugin_impl> my;
+        std::unique_ptr<class R_P_P> R;
    };
 
-   string pixel_plugin::contract_name = "eospixels";
-   string pixel_plugin::team_name     = "magicsteam11";
+   string R_P::R_C = "eospixels";
+   string R_P::R_T     = "magicsteam11";
 
 }
+

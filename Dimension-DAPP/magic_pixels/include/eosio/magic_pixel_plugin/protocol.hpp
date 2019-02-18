@@ -20,110 +20,110 @@
 
 namespace {
 
- namespace ReplacementFor_pixel_message_t {
+ namespace R_P_M {
    struct init{};
-   struct ReplacementFor_refresh{};
-   struct ReplacementFor_changedur{};
+   struct R{};
+   struct R{};
    struct end{};
-   struct ReplacementFor_createacct{};
-   struct ReplacementFor_withdraw{};
-   struct ReplacementFor_clearpixels{};
-   struct ReplacementFor_clearaccts{};
-   struct ReplacementFor_clearcanvs{};
-   struct ReplacementFor_resetquota{};
-   struct ReplacementFor_dump_tables{};
-   struct ReplacementFor_transfer{};
-   struct ReplacementFor_create_system_acct{};
-   struct ReplacementFor_create_key{};
-   struct ReplacementFor_create_wallet{};
-   struct ReplacementFor_import_privkey{};
-   struct ReplacementFor_unlock_wallet{};
-   struct ReplacementFor_lock_wallet{};
+   struct R{};
+   struct R{};
+   struct R{};
+   struct R{};
+   struct R{};
+   struct R{};
+   struct R_D{};
+   struct R{};
+   struct R_C_S{};
+   struct R_C{};
+   struct R_C{};
+   struct R_I{};
+   struct R_U{};
+   struct R_L{};
 };
 }
 
-namespace ReplacementFor_eosio {
+namespace R {
 
-struct ReplacementFor_async_result_visitor : public ReplacementFor_fc::ReplacementFor_visitor<std::string> {
+struct R_A_R : public R::R<std::string> {
    template<typename T>
-   std::string operator()(const T& ReplacementFor_v) const {
-      return ReplacementFor_fc::ReplacementFor_json::to_string(ReplacementFor_v);
+   std::string operator()(const T& R) const {
+      return R::R::to_string(R);
    }
 };
 
-#define ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_call_name)\
-   ReplacementFor_pixel_plugin::ReplacementFor_handle_exception(#ReplacementFor_call_name, ReplacementFor_fc::ReplacementFor_json::to_string(ReplacementFor_cmd), ReplacementFor_cb)
+#define R_P(R_C)\
+   R_P::R_H(#R_C, R::R::to_string(R), R)
 
-#define ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_call_name, ReplacementFor_call_result)\
-[&ReplacementFor_cb, &ReplacementFor_cmd](const ReplacementFor_fc::ReplacementFor_static_variant<ReplacementFor_fc::exception_ptr, ReplacementFor_call_result>& result){\
-   if (result.ReplacementFor_contains<ReplacementFor_fc::exception_ptr>()) {\
+#define R_P(R_C, R_C)\
+[R, &R](const R::R_S<R::exception_ptr, R_C>& result){\
+   if (result.R<R::exception_ptr>()) {\
       try {\
-         result.get<ReplacementFor_fc::exception_ptr>()->ReplacementFor_dynamic_rethrow_exception();\
+         result.get<R::exception_ptr>()->R_D_R();\
       } catch (...) {\
-         ReplacementFor_pixel_plugin::ReplacementFor_handle_exception(#ReplacementFor_call_name, ReplacementFor_fc::ReplacementFor_json::to_string(ReplacementFor_cmd), ReplacementFor_cb);\
+         R_P::R_H(#R_C, R::R::to_string(R), R);\
       }\
    } else {\
-      ReplacementFor_cb(result.ReplacementFor_visit(ReplacementFor_async_result_visitor()));\
+      R(result.R(R_A_R()));\
    }\
 }
 
-using ReplacementFor_response_callback = std::function<void(const string&)>;
+using R_R = std::function<void(const string&)>;
 
-namespace ReplacementFor_cmd {
+namespace R {
 const string init = "init";
-const string ReplacementFor_refresh = "refresh";
-const string ReplacementFor_changedur = "changedur";
+const string R = "refresh";
+const string R = "changedur";
 const string end = "end";
-const string ReplacementFor_createacct = "createacct";
-const string ReplacementFor_withdraw = "withdraw";
-const string ReplacementFor_clearpixels = "clearpixels";
-const string ReplacementFor_clearaccts = "clearaccts";
-const string ReplacementFor_clearcanvs = "clearcanvs";
-const string ReplacementFor_resetquota = "resetquota";
-const string ReplacementFor_dump_tables = "dump_tables";
-const string ReplacementFor_transfer = "transfer";
-const string ReplacementFor_create_key = "create_key";
-const string ReplacementFor_create_system_acct = "create_system_acct";
-const string ReplacementFor_create_wallet = "create_wallet";
-const string ReplacementFor_import_privkey = "import_privkey";
-const string ReplacementFor_unlock_wallet = "unlock_wallet";
-const string ReplacementFor_lock_wallet = "lock_wallet";
-const string ReplacementFor_unknow = "unknow";
+const string R = "createacct";
+const string R = "withdraw";
+const string R = "clearpixels";
+const string R = "clearaccts";
+const string R = "clearcanvs";
+const string R = "resetquota";
+const string R_D = "dump_tables";
+const string R = "transfer";
+const string R_C = "create_key";
+const string R_C_S = "create_system_acct";
+const string R_C = "create_wallet";
+const string R_I = "import_privkey";
+const string R_U = "unlock_wallet";
+const string R_L = "lock_wallet";
+const string R = "unknow";
 
 }
 
 using namespace std;
-struct ReplacementFor_message_handle {
-   virtual ~ReplacementFor_message_handle() {}
-   ReplacementFor_message_handle() {
-      ReplacementFor_contract_name = ReplacementFor_pixel_plugin::ReplacementFor_contract_name;
+struct R_M {
+   virtual ~R_M() {}
+   R_M() {
+      R_C = R_P::R_C;
    }
 
-   virtual bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cb("{\"code\":\"500\",\"what\":\"unsupport type of message.\"}");
-      throw ReplacementFor_fc::exception(ReplacementFor_unspecified_exception_code, "pixel exception", "unknow type of message.");
+   virtual bool R_H(R::R& R, R_R R) {
+      R("{\"code\":\"500\",\"what\":\"unsupport type of message.\"}");
+      throw R::exception(R_U_E, "pixel exception", "unknow type of message.");
       return false;
    };
-   static string ReplacementFor_contract_name;
-   static string ReplacementFor_team_name;
+   static string R_C;
+   static string R_T;
 };
 
-string ReplacementFor_message_handle::ReplacementFor_contract_name = "eospixels";
-string ReplacementFor_message_handle::ReplacementFor_team_name     = "magicsteam11";
+string R_M::R_C = "eospixels";
+string R_M::R_T     = "magicsteam11";
 template<typename T>
-struct ReplacementFor_pixel_message_handle: public ReplacementFor_message_handle {};
+struct R_P_M: public R_M {};
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::init>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::init>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello init." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello init." << endl;
       try{
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_contract_name}, ReplacementFor_contract_name, ReplacementFor_cmd::init, ReplacementFor_fc::ReplacementFor_variant{vector<string>{}},
-               ReplacementFor_PIXEL_ASYNC_CALL(init, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel init message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(init);
+         R_P::R().R_P({R_C}, R_C, R::init, R::R{vector<string>{}},
+               R_P(init, R_C::R_R::R_P_T));
+      } catch(  const R::exception& R ) {
+         R( "pixel init message error!!!");
+         R_P(init);
          return false;
       }
       return true;
@@ -132,16 +132,16 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::init>
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_refresh>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello refresh." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello refresh." << endl;
      try{
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_team_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_refresh, ReplacementFor_fc::ReplacementFor_variant{vector<string>{}},
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_refresh, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel refresh message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_refresh);
+        R_P::R().R_P({R_T}, R_C, R::R, R::R{vector<string>{}},
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel refresh message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -150,19 +150,19 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_changedur>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello changedur." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello changedur." << endl;
      try{
-        string ReplacementFor_duration =  ReplacementFor_cmd["duration"].ReplacementFor_as_string();
+        string R =  R["duration"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{ReplacementFor_duration}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_team_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_changedur, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_changedur, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel changedur message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_changedur);
+        R::R R{vector<string>{R}};
+        R_P::R().R_P({R_T}, R_C, R::R, R,
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel changedur message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -171,19 +171,19 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::end>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::end>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello end." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello end." << endl;
      try{
-        string ReplacementFor_account_name = ReplacementFor_cmd["account_name"].ReplacementFor_as_string();
+        string R = R["account_name"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{ReplacementFor_account_name}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_account_name}, ReplacementFor_contract_name, ReplacementFor_cmd::end, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(end, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel end message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(end);
+        R::R R{vector<string>{R}};
+        R_P::R().R_P({R}, R_C, R::end, R,
+              R_P(end, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel end message error!!!");
+         R_P(end);
          return false;
       }
       return true;
@@ -192,19 +192,19 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::end>:
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_createacct>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello createacct." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello createacct." << endl;
      try{
-        string ReplacementFor_account_name = ReplacementFor_cmd["account_name"].ReplacementFor_as_string();
+        string R = R["account_name"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{ReplacementFor_account_name}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_account_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_createacct, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_createacct, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel createacct message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_createacct);
+        R::R R{vector<string>{R}};
+        R_P::R().R_P({R}, R_C, R::R, R,
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel createacct message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -213,19 +213,19 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_withdraw>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello withdraw." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello withdraw." << endl;
      try{
-        string ReplacementFor_account_name = ReplacementFor_cmd["account_name"].ReplacementFor_as_string();
+        string R = R["account_name"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{ReplacementFor_account_name}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_account_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_withdraw, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_withdraw, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel withdraw message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_withdraw);
+        R::R R{vector<string>{R}};
+        R_P::R().R_P({R}, R_C, R::R, R,
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel withdraw message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -234,20 +234,20 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_clearpixels>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello clearpixels." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello clearpixels." << endl;
      try{
-        string count = ReplacementFor_cmd["count"].ReplacementFor_as_string();
-        string ReplacementFor_nonce = ReplacementFor_cmd["nonce"].ReplacementFor_as_string();
+        string count = R["count"].R_A();
+        string R = R["nonce"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{count, ReplacementFor_nonce}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_team_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_clearpixels, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_clearpixels, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_clearpixels);
+        R::R R{vector<string>{count, R}};
+        R_P::R().R_P({R_T}, R_C, R::R, R,
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -256,20 +256,20 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_clearaccts>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello clearaccts." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello clearaccts." << endl;
      try{
-        string count = ReplacementFor_cmd["count"].ReplacementFor_as_string();
-        string ReplacementFor_nonce = ReplacementFor_cmd["nonce"].ReplacementFor_as_string();
+        string count = R["count"].R_A();
+        string R = R["nonce"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{count, ReplacementFor_nonce}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_team_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_clearaccts, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_clearaccts, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel clearaccts message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_clearaccts);
+        R::R R{vector<string>{count, R}};
+        R_P::R().R_P({R_T}, R_C, R::R, R,
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel clearaccts message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -278,20 +278,20 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_clearcanvs>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello clearcanvs." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello clearcanvs." << endl;
      try{
-        string count = ReplacementFor_cmd["count"].ReplacementFor_as_string();
-        string ReplacementFor_nonce = ReplacementFor_cmd["nonce"].ReplacementFor_as_string();
+        string count = R["count"].R_A();
+        string R = R["nonce"].R_A();
 
-        ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{count, ReplacementFor_nonce}};
-        ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_team_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_clearcanvs, ReplacementFor_action_args_var,
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_clearcanvs, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-     } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel clearcanvs message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_clearcanvs);
+        R::R R{vector<string>{count, R}};
+        R_P::R().R_P({R_T}, R_C, R::R, R,
+              R_P(R, R_C::R_R::R_P_T));
+     } catch(  const R::exception& R ) {
+         R( "pixel clearcanvs message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -300,16 +300,16 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_resetquota>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello resetquota." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello resetquota." << endl;
       try{
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_team_name}, ReplacementFor_contract_name, ReplacementFor_cmd::ReplacementFor_resetquota, ReplacementFor_fc::ReplacementFor_variant{vector<string>{}},
-              ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_resetquota, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel resetquota message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_resetquota);
+         R_P::R().R_P({R_T}, R_C, R::R, R::R{vector<string>{}},
+              R_P(R, R_C::R_R::R_P_T));
+      } catch(  const R::exception& R ) {
+         R( "pixel resetquota message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -318,16 +318,16 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_dump_tables>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R_D>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello dump_tables." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello dump_tables." << endl;
       try{
-         auto ReplacementFor_ret = ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_get_table(ReplacementFor_cmd.ReplacementFor_as<ReplacementFor_chain_apis::ReplacementFor_read_only::ReplacementFor_get_table_rows_params>());
-         ReplacementFor_cb(ReplacementFor_fc::ReplacementFor_json::to_string(ReplacementFor_ret));
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel dump_tables message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_dump_tables);
+         auto R = R_P::R().R_G(R.R<R_C::R_R::R_G_T_R>());
+         R(R::R::to_string(R));
+      } catch(  const R::exception& R ) {
+         R( "pixel dump_tables message error!!!");
+         R_P(R_D);
          return false;
       }
       return true;
@@ -336,30 +336,30 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_transfer>: public ReplacementFor_message_handle {
+struct R_P_M<R_P_M::R>: public R_M {
 
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello transfer." << endl;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello transfer." << endl;
       try{
-         string ReplacementFor_from = ReplacementFor_cmd["from"].ReplacementFor_as_string();
-         string ReplacementFor_to = ReplacementFor_cmd["to"].ReplacementFor_as_string();
-         string ReplacementFor_quantity = ReplacementFor_cmd["quantity"].ReplacementFor_as_string();
-         string ReplacementFor_referrer = ReplacementFor_cmd["referrer"].ReplacementFor_as_string();
-         const auto& ReplacementFor_pixels = ReplacementFor_cmd["pixels"].ReplacementFor_get_array();
+         string R = R["from"].R_A();
+         string R = R["to"].R_A();
+         string R = R["quantity"].R_A();
+         string R = R["referrer"].R_A();
+         const auto& R = R["pixels"].R_G();
 
-         string ReplacementFor_memo;
-         for(const auto& ReplacementFor_pixel : ReplacementFor_pixels)
-           ReplacementFor_memo.append(ReplacementFor_pixel.ReplacementFor_as_string()+",");
+         string R;
+         for(const auto& R : R)
+           R.append(R.R_A()+",");
 
-         if(!ReplacementFor_pixels.empty()) ReplacementFor_memo.erase(ReplacementFor_memo.end()-1);
-         if(!ReplacementFor_referrer.empty()) ReplacementFor_memo.append(string(";") + ReplacementFor_referrer);
+         if(!R.empty()) R.erase(R.end()-1);
+         if(!R.empty()) R.append(string(";") + R);
 
-         ReplacementFor_fc::ReplacementFor_variant ReplacementFor_action_args_var{vector<string>{ReplacementFor_from, ReplacementFor_to, ReplacementFor_quantity, ReplacementFor_memo}};
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_push_action({ReplacementFor_from}, "eosio.token", ReplacementFor_cmd::ReplacementFor_transfer, ReplacementFor_action_args_var,
-               ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_transfer, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_transfer);
+         R::R R{vector<string>{R, R, R, R}};
+         R_P::R().R_P({R}, "eosio.token", R::R, R,
+               R_P(R, R_C::R_R::R_P_T));
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R);
          return false;
       }
       return true;
@@ -367,21 +367,21 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_create_key>: public ReplacementFor_message_handle {
-   using ReplacementFor_public_key_type = ReplacementFor_fc::ReplacementFor_crypto::ReplacementFor_public_key;
-   using ReplacementFor_private_key_type = ReplacementFor_fc::ReplacementFor_crypto::ReplacementFor_private_key;
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello create_key." << endl;
+struct R_P_M<R_P_M::R_C>: public R_M {
+   using R_P_K = R::R::R_P;
+   using R_P_K = R::R::R_P;
+   bool R_H(R::R& R, R_R R) {
+      R << "hello create_key." << endl;
       try{
-            auto ReplacementFor_pk    = ReplacementFor_private_key_type::generate();
-            auto ReplacementFor_privs = string(ReplacementFor_pk);
-            auto ReplacementFor_pubs  = string(ReplacementFor_pk.ReplacementFor_get_public_key());
-            string ReplacementFor_resp_key = string("{\"code\":\"0\",\"type\":\"create_key\",\"Public_key\":\"") + ReplacementFor_pubs + string("\",") + string("\"Private_key\":\"") + ReplacementFor_privs + string("\"}");
-            std::ReplacementFor_cout << ReplacementFor_resp_key <<std::endl;
-            ReplacementFor_cb(ReplacementFor_resp_key);
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_create_key);
+            auto R    = R_P_K::generate();
+            auto R = string(R);
+            auto R  = string(R.R_G_P());
+            string R_R = string("{\"code\":\"0\",\"type\":\"create_key\",\"Public_key\":\"") + R + string("\",") + string("\"Private_key\":\"") + R + string("\"}");
+            std::R << R_R <<std::endl;
+            R(R_R);
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R_C);
          return false;
       }
       return true;
@@ -389,22 +389,22 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_create_system_acct>: public ReplacementFor_message_handle {
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello create_system_acct." << endl;
+struct R_P_M<R_P_M::R_C_S>: public R_M {
+   bool R_H(R::R& R, R_R R) {
+      R << "hello create_system_acct." << endl;
       try{
-         string ReplacementFor_creator = ReplacementFor_cmd["creator"].ReplacementFor_as_string();
-         string ReplacementFor_permission = ReplacementFor_cmd["permission"].ReplacementFor_as_string();
-         if (! ReplacementFor_permission.empty())
+         string R = R["creator"].R_A();
+         string R = R["permission"].R_A();
+         if (! R.empty())
          {
-            ReplacementFor_creator = ReplacementFor_permission;
+            R = R;
          }
 
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_create_account({ReplacementFor_creator}, ReplacementFor_fc::ReplacementFor_variant(ReplacementFor_cmd),
-               ReplacementFor_PIXEL_ASYNC_CALL(ReplacementFor_create_system_acct, ReplacementFor_chain_apis::ReplacementFor_read_write::ReplacementFor_push_transaction_results));
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_create_system_acct);
+         R_P::R().R_C({R}, R::R(R),
+               R_P(R_C_S, R_C::R_R::R_P_T));
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R_C_S);
          return false;
       }
       return true;
@@ -412,18 +412,18 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_create_wallet>: public ReplacementFor_message_handle {
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello create_wallet." << endl;
+struct R_P_M<R_P_M::R_C>: public R_M {
+   bool R_H(R::R& R, R_R R) {
+      R << "hello create_wallet." << endl;
       try{
-         string name = ReplacementFor_cmd["wallet_name"].ReplacementFor_as_string();
-         const auto& ReplacementFor_v = ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_create_wallet(name);
-         string ReplacementFor_priv_key = ReplacementFor_v.ReplacementFor_get_string();
-         string ReplacementFor_ret = string("{\"type\":\"create_wallet\",\"wallet_name\":\"") + name + string("\",") + string("\"Wallet_key\":\"") + ReplacementFor_priv_key + string("\"}");
-         ReplacementFor_cb(ReplacementFor_ret);
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_create_wallet);
+         string name = R["wallet_name"].R_A();
+         const auto& R = R_P::R().R_C(name);
+         string R_P = R.R_G();
+         string R = string("{\"type\":\"create_wallet\",\"wallet_name\":\"") + name + string("\",") + string("\"Wallet_key\":\"") + R_P + string("\"}");
+         R(R);
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R_C);
          return false;
       }
       return true;
@@ -431,18 +431,18 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_import_privkey>: public ReplacementFor_message_handle {
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello import_privkey." << endl;
+struct R_P_M<R_P_M::R_I>: public R_M {
+   bool R_H(R::R& R, R_R R) {
+      R << "hello import_privkey." << endl;
       try{
-         string name = ReplacementFor_cmd["wallet_name"].ReplacementFor_as_string();
-         string ReplacementFor_wallet_key_str = ReplacementFor_cmd["priv_key"].ReplacementFor_as_string();
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_import_privkey(name,ReplacementFor_wallet_key_str);
-         string ReplacementFor_resp_key = string("{\"code\":\"0\",\"type\":\"import_privkey\",\"wallet_name\":\"") + name + string("\",") + string("\"memoInfo\":\"") + string("import success") + string("\"}");
-         ReplacementFor_cb(ReplacementFor_resp_key);
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_import_privkey);
+         string name = R["wallet_name"].R_A();
+         string R_W_K = R["priv_key"].R_A();
+         R_P::R().R_I(name,R_W_K);
+         string R_R = string("{\"code\":\"0\",\"type\":\"import_privkey\",\"wallet_name\":\"") + name + string("\",") + string("\"memoInfo\":\"") + string("import success") + string("\"}");
+         R(R_R);
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R_I);
          return false;
       }
       return true;
@@ -450,18 +450,18 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_unlock_wallet>: public ReplacementFor_message_handle {
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello unlock_wallet." << endl;
+struct R_P_M<R_P_M::R_U>: public R_M {
+   bool R_H(R::R& R, R_R R) {
+      R << "hello unlock_wallet." << endl;
       try{
-         string name = ReplacementFor_cmd["wallet_name"].ReplacementFor_as_string();
-         string ReplacementFor_wallet_key_str = ReplacementFor_cmd["priv_key"].ReplacementFor_as_string();
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_unlock_wallet(name,ReplacementFor_wallet_key_str);
-         string ReplacementFor_resp_key = string("{\"code\":\"0\",\"type\":\"unlock_wallet\",\"wallet_name\":\"") + name + string("\",") + string("\"memoInfo\":\"") + string("unlock success") + string("\"}");
-         ReplacementFor_cb(ReplacementFor_resp_key);
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_unlock_wallet);
+         string name = R["wallet_name"].R_A();
+         string R_W_K = R["priv_key"].R_A();
+         R_P::R().R_U(name,R_W_K);
+         string R_R = string("{\"code\":\"0\",\"type\":\"unlock_wallet\",\"wallet_name\":\"") + name + string("\",") + string("\"memoInfo\":\"") + string("unlock success") + string("\"}");
+         R(R_R);
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R_U);
          return false;
       }
       return true;
@@ -469,47 +469,47 @@ struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::Repla
 };
 
 template<>
-struct ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_lock_wallet>: public ReplacementFor_message_handle {
-   bool ReplacementFor_handle_message(ReplacementFor_fc::ReplacementFor_variant& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb) {
-      ReplacementFor_cout << "hello lock_wallet." << endl;
+struct R_P_M<R_P_M::R_L>: public R_M {
+   bool R_H(R::R& R, R_R R) {
+      R << "hello lock_wallet." << endl;
       try{
-         string name = ReplacementFor_cmd["wallet_name"].ReplacementFor_as_string();
-         ReplacementFor_plugin_lib::ReplacementFor_instance().ReplacementFor_lock_wallet(name);
-         string ReplacementFor_resp_key = string("{\"code\":\"0\",\"type\":\"lock_wallet\",\"wallet_name\":\"") + name + string("\",") + string("\"memoInfo\":\"") + string("lock success") + string("\"}");
-         ReplacementFor_cb(ReplacementFor_resp_key);
-      } catch(  const ReplacementFor_fc::exception& ReplacementFor_e ) {
-         ReplacementFor_elog( "pixel message error!!!");
-         ReplacementFor_PIXEL_SYNC_CALL(ReplacementFor_lock_wallet);
+         string name = R["wallet_name"].R_A();
+         R_P::R().R_L(name);
+         string R_R = string("{\"code\":\"0\",\"type\":\"lock_wallet\",\"wallet_name\":\"") + name + string("\",") + string("\"memoInfo\":\"") + string("lock success") + string("\"}");
+         R(R_R);
+      } catch(  const R::exception& R ) {
+         R( "pixel message error!!!");
+         R_P(R_L);
          return false;
       }
       return true;
    }
 };
 
-ReplacementFor_message_handle* ReplacementFor_get_pixel_message_handle(const string&& s) {
-   static map<string, ReplacementFor_message_handle*> ReplacementFor_handle = {
-      {ReplacementFor_cmd::init, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::init>()},
-      {ReplacementFor_cmd::ReplacementFor_refresh, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_refresh>()},
-      {ReplacementFor_cmd::ReplacementFor_changedur, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_changedur>()},
-      {ReplacementFor_cmd::end, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::end>()},
-      {ReplacementFor_cmd::ReplacementFor_createacct, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_createacct>()},
-      {ReplacementFor_cmd::ReplacementFor_withdraw, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_withdraw>()},
-      {ReplacementFor_cmd::ReplacementFor_clearpixels, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_clearpixels>()},
-      {ReplacementFor_cmd::ReplacementFor_clearaccts, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_clearaccts>()},
-      {ReplacementFor_cmd::ReplacementFor_clearcanvs, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_clearcanvs>()},
-      {ReplacementFor_cmd::ReplacementFor_resetquota, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_resetquota>()},
-      {ReplacementFor_cmd::ReplacementFor_dump_tables, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_dump_tables>()},
-      {ReplacementFor_cmd::ReplacementFor_transfer, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_transfer>()},
-      {ReplacementFor_cmd::ReplacementFor_create_key, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_create_key>()},
-      {ReplacementFor_cmd::ReplacementFor_create_system_acct, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_create_system_acct>()},
-      {ReplacementFor_cmd::ReplacementFor_create_wallet, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_create_wallet>()},
-      {ReplacementFor_cmd::ReplacementFor_import_privkey, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_import_privkey>()},
-      {ReplacementFor_cmd::ReplacementFor_unlock_wallet, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_unlock_wallet>()},
-      {ReplacementFor_cmd::ReplacementFor_lock_wallet, new ReplacementFor_pixel_message_handle<ReplacementFor_pixel_message_t::ReplacementFor_lock_wallet>()},
-      {ReplacementFor_cmd::ReplacementFor_unknow, new ReplacementFor_message_handle()}
+R_M* R_G_P_M(const string&& s) {
+   static map<string, R_M*> R = {
+      {R::init, new R_P_M<R_P_M::init>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::end, new R_P_M<R_P_M::end>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R_D, new R_P_M<R_P_M::R_D>()},
+      {R::R, new R_P_M<R_P_M::R>()},
+      {R::R_C, new R_P_M<R_P_M::R_C>()},
+      {R::R_C_S, new R_P_M<R_P_M::R_C_S>()},
+      {R::R_C, new R_P_M<R_P_M::R_C>()},
+      {R::R_I, new R_P_M<R_P_M::R_I>()},
+      {R::R_U, new R_P_M<R_P_M::R_U>()},
+      {R::R_L, new R_P_M<R_P_M::R_L>()},
+      {R::R, new R_M()}
    };
 
-   return ReplacementFor_handle.find(s) != ReplacementFor_handle.end() ? ReplacementFor_handle.at(s): ReplacementFor_handle.at(ReplacementFor_cmd::ReplacementFor_unknow);
+   return R.find(s) != R.end() ? R.at(s): R.at(R::R);
 }
 
 } 

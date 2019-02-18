@@ -30,310 +30,334 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
-using namespace ReplacementFor_eosio::ReplacementFor_chain::ReplacementFor_plugin_interface::ReplacementFor_compat;
+using namespace R::R::R_P::R;
 
-namespace ReplacementFor_fc {
-   extern std::ReplacementFor_unordered_map<std::ReplacementFor_string,ReplacementFor_logger>& ReplacementFor_get_logger_map();
+namespace R {
+   extern std::R_U<std::string,R>& R_G_L();
 }
 
-namespace ReplacementFor_eosio {
-   static ReplacementFor_appbase::ReplacementFor_abstract_plugin& ReplacementFor__pixel_plugin = ReplacementFor_app().ReplacementFor_register_plugin<ReplacementFor_pixel_plugin>();
+namespace R {
+   static R::R_A& R___P = app().R_R<R_P>();
 
-   using std::ReplacementFor_vector;
-   using std::ReplacementFor_deque;
-   using std::ReplacementFor_shared_ptr;
+   using std::vector;
+   using std::deque;
+   using std::shared_ptr;
 
-   using ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_ip::ReplacementFor_tcp;
-   using ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_ip::ReplacementFor_address_v4;
-   using ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_ip::ReplacementFor_host_name;
-   using ReplacementFor_boost::ReplacementFor_intrusive::ReplacementFor_rbtree;
-   using ReplacementFor_boost::ReplacementFor_multi_index_container;
+   using R::R::R::R;
+   using R::R::R::R_A;
+   using R::R::R::R_H;
+   using R::R::R;
+   using R::R_M_I;
 
-   using ReplacementFor_fc::ReplacementFor_time_point;
-   using ReplacementFor_fc::ReplacementFor_time_point_sec;
-   using ReplacementFor_chain::ReplacementFor_block_state_ptr;
+   using R::R_T;
+   using R::R_T_P;
+   using R::R_B_S;
 
 
-   class ReplacementFor_psession;
+   class R;
 
-   using ReplacementFor_psession_ptr = std::ReplacementFor_shared_ptr<ReplacementFor_psession>;
-   using ReplacementFor_psession_wptr = std::ReplacementFor_weak_ptr<ReplacementFor_psession>;
-   using ReplacementFor_response_func = std::ReplacementFor_function<void(int,ReplacementFor_string)>;
-   using ReplacementFor_socket_ptr = ReplacementFor_shared_ptr<ReplacementFor_tcp::ReplacementFor_socket>;
+   using R_P = std::shared_ptr<R>;
+   using R_P = std::weak_ptr<R>;
+   using R_R = std::function<void(int,string)>;
+   using R_S = shared_ptr<R::R>;
 
-   class ReplacementFor_pixel_plugin_impl {
+   class R_P_P {
    public:
-      ReplacementFor_unique_ptr<ReplacementFor_tcp::ReplacementFor_acceptor>        ReplacementFor_acceptor;
-      ReplacementFor_tcp::ReplacementFor_endpoint                    ReplacementFor_listen_endpoint;
-      uint32_t                         ReplacementFor_num_clients = 0;
+      unique_ptr<R::R>        R;
+      R::R                    R_L;
+      uint32_t                         R_N = 0;
 
-      std::ReplacementFor_map<ReplacementFor_chain::ReplacementFor_public_key_type,
-               ReplacementFor_chain::ReplacementFor_private_key_type> ReplacementFor_private_keys; 
-
-
-      ReplacementFor_psession_ptr ReplacementFor_find_connection( ReplacementFor_string ReplacementFor_host )const;
-
-      std::ReplacementFor_set< ReplacementFor_psession_ptr >       ReplacementFor_connections;
-      bool                             ReplacementFor_done = false;
-
-      ReplacementFor_unique_ptr<ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_steady_timer> ReplacementFor_transaction_check;
-      ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_steady_timer::ReplacementFor_duration   ReplacementFor_resp_expected_period;
-
-      ReplacementFor_chain_plugin*                 ReplacementFor_chain_plug = nullptr;
-      int                           ReplacementFor_started_sessions = 0;
-      ReplacementFor_shared_ptr<ReplacementFor_tcp::ReplacementFor_resolver>     ReplacementFor_resolver;
-
-      bool ReplacementFor_start_session( ReplacementFor_psession_ptr ReplacementFor_c );
-      void ReplacementFor_start_listen_loop( );
-      void ReplacementFor_start_read_message( ReplacementFor_psession_ptr ReplacementFor_c);
-
-      void   ReplacementFor_close( ReplacementFor_psession_ptr ReplacementFor_c );
+      std::map<R::R_P_K,
+               R::R_P_K> R_P; 
 
 
-      void ReplacementFor_accepted_block_header(const ReplacementFor_block_state_ptr&);
-      void ReplacementFor_accepted_block(const ReplacementFor_block_state_ptr&);
-      void ReplacementFor_irreversible_block(const ReplacementFor_block_state_ptr&);
-      void ReplacementFor_accepted_transaction(const ReplacementFor_transaction_metadata_ptr&);
-      void ReplacementFor_applied_transaction(const ReplacementFor_transaction_trace_ptr&);
-      void ReplacementFor_accepted_confirmation(const ReplacementFor_header_confirmation&);
+      R_P R_F( string R )const;
 
-      bool ReplacementFor_is_valid( const ReplacementFor_handshake_message &ReplacementFor_msg);
+      std::set< R_P >       R;
+      bool                             R = false;
 
-      void ReplacementFor_handle_message( ReplacementFor_psession_ptr ReplacementFor_c, const ReplacementFor_handshake_message &ReplacementFor_msg);
+      unique_ptr<R::R::R_S> R_T;
+      R::R::R_S::R   R_R_E;
 
-      void ReplacementFor_is_transaction_success(ReplacementFor_psession_ptr ReplacementFor_c);
+      R_C*                 R_C = nullptr;
+      int                           R_S = 0;
+      shared_ptr<R::R>     R;
 
-      struct ReplacementFor_transcation_info {
-         uint64_t ReplacementFor_count;
-         uint32_t ReplacementFor_block_num;
-         ReplacementFor_string ReplacementFor_id;
-         ReplacementFor_string ReplacementFor_type;
-         ReplacementFor_psession_wptr ReplacementFor_s;
-         bool operator<(const ReplacementFor_transcation_info &ReplacementFor_other) const {
-            return ReplacementFor_block_num < ReplacementFor_other.ReplacementFor_block_num;
+      bool R_S( R_P c );
+      void R_S_L( );
+      void R_S_R( R_P c);
+
+      void   close( R_P c );
+
+
+      void R_A_B(const R_B_S&);
+      void R_A(const R_B_S&);
+      void R_I(const R_B_S&);
+      void R_A(const R_T_M&);
+      void R_A(const R_T_T&);
+      void R_A(const R_H&);
+
+      bool R_I( const R_H &R);
+
+      void R_H( R_P c, const R_H &R);
+
+      void R_I_T(R_P c);
+
+      struct R_T {
+         uint64_t count;
+         uint32_t R_B;
+         string id;
+         string type;
+         R_P s;
+         bool operator<(const R_T &other) const {
+            return R_B < other.R_B;
          }
       };
-      std::ReplacementFor_multiset<ReplacementFor_transcation_info> ReplacementFor_transcation_infos;
+      std::R<R_T> R_T;
 
-      std::ReplacementFor_multiset<ReplacementFor_transcation_info>& ReplacementFor_get_transcation_infos() { return ReplacementFor_transcation_infos; }
-      ReplacementFor_boost::ReplacementFor_optional<std::ReplacementFor_pair<uint32_t, ReplacementFor_string>> ReplacementFor_transction_info_form_msg(const ReplacementFor_string& ReplacementFor_msg);
+      std::R<R_T>& R_G_T() { return R_T; }
+      R::R<std::pair<uint32_t, string>> R_T_I_F(const string& R);
    };
 
-   const ReplacementFor_fc::ReplacementFor_string ReplacementFor_logger_name("pixel_plugin_impl");
-   ReplacementFor_fc::ReplacementFor_logger ReplacementFor_plogger;
-   std::ReplacementFor_string ReplacementFor_plog_format;
+   const R::string R_L("pixel_plugin_impl");
+   R::R R;
+   std::string R_P;
 
-#define ReplacementFor_peer_dlog( ReplacementFor_PEER, FORMAT, ... ) \
-  ReplacementFor_FC_MULTILINE_MACRO_BEGIN \
-   if( ReplacementFor_plogger.ReplacementFor_is_enabled( ReplacementFor_fc::ReplacementFor_log_level::ReplacementFor_debug ) ) \
-      ReplacementFor_plogger.ReplacementFor_log( ReplacementFor_FC_LOG_MESSAGE( ReplacementFor_debug, ReplacementFor_plog_format + FORMAT, ReplacementFor___VA_ARGS__ (ReplacementFor_PEER->ReplacementFor_get_logger_variant()) ) ); \
-  ReplacementFor_FC_MULTILINE_MACRO_END
+#define R_P( R, FORMAT, ... ) \
+  R_F_M_M \
+   if( R.R_I( R::R_L::R ) ) \
+      R.log( R_F_L( R, R_P + FORMAT, R_____V_A__ (R->R_G_L()) ) ); \
+  R_F_M_M
 
-#define ReplacementFor_peer_ilog( ReplacementFor_PEER, FORMAT, ... ) \
-  ReplacementFor_FC_MULTILINE_MACRO_BEGIN \
-   if( ReplacementFor_plogger.ReplacementFor_is_enabled( ReplacementFor_fc::ReplacementFor_log_level::ReplacementFor_info ) ) \
-      ReplacementFor_plogger.ReplacementFor_log( ReplacementFor_FC_LOG_MESSAGE( ReplacementFor_info, ReplacementFor_plog_format + FORMAT, ReplacementFor___VA_ARGS__ (ReplacementFor_PEER->ReplacementFor_get_logger_variant()) ) ); \
-  ReplacementFor_FC_MULTILINE_MACRO_END
+#define R_P( R, FORMAT, ... ) \
+  R_F_M_M \
+   if( R.R_I( R::R_L::R ) ) \
+      R.log( R_F_L( R, R_P + FORMAT, R_____V_A__ (R->R_G_L()) ) ); \
+  R_F_M_M
 
-#define ReplacementFor_peer_wlog( ReplacementFor_PEER, FORMAT, ... ) \
-  ReplacementFor_FC_MULTILINE_MACRO_BEGIN \
-   if( ReplacementFor_plogger.ReplacementFor_is_enabled( ReplacementFor_fc::ReplacementFor_log_level::ReplacementFor_warn ) ) \
-      ReplacementFor_plogger.ReplacementFor_log( ReplacementFor_FC_LOG_MESSAGE( ReplacementFor_warn, ReplacementFor_plog_format + FORMAT, ReplacementFor___VA_ARGS__ (ReplacementFor_PEER->ReplacementFor_get_logger_variant()) ) ); \
-  ReplacementFor_FC_MULTILINE_MACRO_END
+#define R_P( R, FORMAT, ... ) \
+  R_F_M_M \
+   if( R.R_I( R::R_L::R ) ) \
+      R.log( R_F_L( R, R_P + FORMAT, R_____V_A__ (R->R_G_L()) ) ); \
+  R_F_M_M
 
-#define ReplacementFor_peer_elog( ReplacementFor_PEER, FORMAT, ... ) \
-  ReplacementFor_FC_MULTILINE_MACRO_BEGIN \
-   if( ReplacementFor_plogger.ReplacementFor_is_enabled( ReplacementFor_fc::ReplacementFor_log_level::error ) ) \
-      ReplacementFor_plogger.ReplacementFor_log( ReplacementFor_FC_LOG_MESSAGE( error, ReplacementFor_plog_format + FORMAT, ReplacementFor___VA_ARGS__ (ReplacementFor_PEER->ReplacementFor_get_logger_variant())) );   ReplacementFor_FC_MULTILINE_MACRO_END
+#define R_P( R, FORMAT, ... ) \
+  R_F_M_M \
+   if( R.R_I( R::R_L::error ) ) \
+      R.log( R_F_L( error, R_P + FORMAT, R_____V_A__ (R->R_G_L())) );   R_F_M_M
 
-   static ReplacementFor_pixel_plugin_impl *ReplacementFor_my_impl;
+   static R_P_P *R_M;
 
    
 
 
-   constexpr auto     ReplacementFor_def_send_buffer_size_mb = 4;
-   constexpr auto     ReplacementFor_def_send_buffer_size = 1024*1024*ReplacementFor_def_send_buffer_size_mb;
-   constexpr auto     ReplacementFor_def_max_clients = 25; 
-   constexpr auto     ReplacementFor_def_max_nodes_per_host = 1;
-   constexpr auto     ReplacementFor_def_conn_retry_wait = 30;
-   constexpr auto     ReplacementFor_def_txn_expire_wait = std::ReplacementFor_chrono::ReplacementFor_seconds(3);
-   constexpr auto     ReplacementFor_def_resp_expected_wait = std::ReplacementFor_chrono::ReplacementFor_seconds(5);
-   constexpr auto     ReplacementFor_def_sync_fetch_span = 100;
-   constexpr uint32_t  ReplacementFor_def_max_just_send = 1500; 
-   constexpr bool     ReplacementFor_large_msg_notify = false;
+   constexpr auto     R_D_S_B_S = 4;
+   constexpr auto     R_D_S_B = 1024*1024*R_D_S_B_S;
+   constexpr auto     R_D_M = 25; 
+   constexpr auto     R_D_M_N_P = 1;
+   constexpr auto     R_D_C_R = 30;
+   constexpr auto     R_D_T_E = std::R::R(3);
+   constexpr auto     R_D_R_E = std::R::R(5);
+   constexpr auto     R_D_S_F = 100;
+   constexpr uint32_t  R_D_M_J = 1500; 
+   constexpr bool     R_L_M = false;
 
-   constexpr auto     ReplacementFor_message_length_size = 4;
-   constexpr auto     ReplacementFor_message_counter_size = 8;
-   constexpr auto     ReplacementFor_message_header_size = ReplacementFor_message_length_size + ReplacementFor_message_counter_size;
+   constexpr auto     R_M_L = 4;
+   constexpr auto     R_M_C = 8;
+   constexpr auto     R_M_H = R_M_L + R_M_C;
 
-   class ReplacementFor_psession : public std::ReplacementFor_enable_shared_from_this<ReplacementFor_psession> {
+   class R : public std::enable_shared_from_this<R> {
    public:
-      explicit ReplacementFor_psession( ReplacementFor_string ReplacementFor_endpoint );
+      explicit R( string R );
 
-      explicit ReplacementFor_psession( ReplacementFor_socket_ptr ReplacementFor_s );
-      ~ReplacementFor_psession();
-      void ReplacementFor_initialize();
+      explicit R( R_S s );
+      ~R();
+      void R();
 
-      ReplacementFor_socket_ptr              ReplacementFor_socket;
+      R_S              R;
 
-      ReplacementFor_fc::ReplacementFor_message_buffer<1024*1024>    ReplacementFor_pending_message_buffer;
-      ReplacementFor_fc::ReplacementFor_optional<std::ReplacementFor_size_t>        ReplacementFor_outstanding_read_bytes;
-      ReplacementFor_vector<char>                     ReplacementFor_rcv_buffer;
+      R::R_M<1024*1024>    R_P_M;
+      R::R<std::size_t>        R_O_R;
+      vector<char>                     R_R;
 
-      ReplacementFor_string                  ReplacementFor_peer_addr;
-      ReplacementFor_unique_ptr<ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_steady_timer> ReplacementFor_response_expected;
+      string                  R_P;
+      unique_ptr<R::R::R_S> R_R;
 
        
 
-      const ReplacementFor_string ReplacementFor_peer_name() {return ReplacementFor_peer_addr;}
-      bool ReplacementFor_connected();
-      void ReplacementFor_close();
+      const string R_P() {return R_P;}
+      bool R();
+      void close();
 
-      void ReplacementFor_flush_queues();
-      bool ReplacementFor_process_next_message(ReplacementFor_pixel_plugin_impl& ReplacementFor_impl, uint64_t ReplacementFor_count, uint32_t ReplacementFor_message_length);
-      bool ReplacementFor_send_response(uint64_t ReplacementFor_count, const ReplacementFor_string& ReplacementFor_msg);
 
-      ReplacementFor_fc::ReplacementFor_optional<ReplacementFor_fc::ReplacementFor_variant_object> ReplacementFor__logger_variant;
-      const ReplacementFor_fc::ReplacementFor_variant_object& ReplacementFor_get_logger_variant()  {
-         if (!ReplacementFor__logger_variant) {
-            ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec;
-            auto ReplacementFor_rep = ReplacementFor_socket->ReplacementFor_remote_endpoint(ReplacementFor_ec);
-            ReplacementFor_string ReplacementFor_ip = ReplacementFor_ec ? "<unknown>" : ReplacementFor_rep.ReplacementFor_address().ReplacementFor_to_string();
-            ReplacementFor_string ReplacementFor_port = ReplacementFor_ec ? "<unknown>" : std::ReplacementFor_to_string(ReplacementFor_rep.ReplacementFor_port());
 
-            auto ReplacementFor_lep = ReplacementFor_socket->ReplacementFor_local_endpoint(ReplacementFor_ec);
-            ReplacementFor_string ReplacementFor_lip = ReplacementFor_ec ? "<unknown>" : ReplacementFor_lep.ReplacementFor_address().ReplacementFor_to_string();
-            ReplacementFor_string ReplacementFor_lport = ReplacementFor_ec ? "<unknown>" : std::ReplacementFor_to_string(ReplacementFor_lep.ReplacementFor_port());
+        void R_F();
 
-            ReplacementFor__logger_variant.ReplacementFor_emplace(ReplacementFor_fc::ReplacementFor_mutable_variant_object()
-               ("_name", ReplacementFor_peer_name())
-               ("_ip", ReplacementFor_ip)
-               ("_port", ReplacementFor_port)
-               ("_lip", ReplacementFor_lip)
-               ("_lport", ReplacementFor_lport)
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+      bool R_P_N(R_P_P& R, uint64_t count, uint32_t R_M);
+      bool R_S(uint64_t count, const string& R);
+
+      R::R<R::R_V> R___L;
+      const R::R_V& R_G_L()  {
+         if (!R___L) {
+            R::system::error_code R;
+            auto R = R->R_R(R);
+            string R = R ? "<unknown>" : R.address().to_string();
+            string R = R ? "<unknown>" : std::to_string(R.R());
+
+            auto R = R->R_L(R);
+            string R = R ? "<unknown>" : R.address().to_string();
+            string R = R ? "<unknown>" : std::to_string(R.R());
+
+            R___L.emplace(R::R_M_V()
+               ("_name", R_P())
+               ("_ip", R)
+               ("_port", R)
+               ("_lip", R)
+               ("_lport", R)
             );
          }
-         return *ReplacementFor__logger_variant;
+         return *R___L;
       }
    };
 
    
 
-   ReplacementFor_psession::ReplacementFor_psession( ReplacementFor_string ReplacementFor_endpoint )
-      : ReplacementFor_socket( std::ReplacementFor_make_shared<ReplacementFor_tcp::ReplacementFor_socket>( std::ReplacementFor_ref( ReplacementFor_app().ReplacementFor_get_io_service() ))),
-        ReplacementFor_peer_addr(ReplacementFor_endpoint),
-        ReplacementFor_response_expected()
+   R::R( string R )
+      : R( std::make_shared<R::R>( std::ref( app().R_G_I() ))),
+        R_P(R),
+        R_R()
    {
-      ReplacementFor_wlog( "created connection to ${n}", ("n", ReplacementFor_endpoint) );
-      ReplacementFor_initialize();
+      R( "created connection to ${n}", ("n", R) );
+      R();
    }
 
-   ReplacementFor_psession::ReplacementFor_psession( ReplacementFor_socket_ptr ReplacementFor_s )
-      : ReplacementFor_socket( ReplacementFor_s ),
-        ReplacementFor_peer_addr(),
-        ReplacementFor_response_expected()
+   R::R( R_S s )
+      : R( s ),
+        R_P(),
+        R_R()
    {
-      ReplacementFor_wlog( "accepted network connection" );
-      ReplacementFor_initialize();
+      R( "accepted network connection" );
+      R();
    }
 
-   ReplacementFor_psession::~ReplacementFor_psession() {}
+   R::~R() {}
 
-   void ReplacementFor_psession::ReplacementFor_initialize() {
-      ReplacementFor_response_expected.ReplacementFor_reset(new ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_steady_timer(ReplacementFor_app().ReplacementFor_get_io_service()));
+   void R::R() {
+      R_R.reset(new R::R::R_S(app().R_G_I()));
    }
 
-   bool ReplacementFor_psession::ReplacementFor_connected() {
-      return (ReplacementFor_socket && ReplacementFor_socket->ReplacementFor_is_open());
+   bool R::R() {
+      return (R && R->R_I());
    }
 
-   void ReplacementFor_psession::ReplacementFor_close() {
-      if(ReplacementFor_socket) {
-         ReplacementFor_socket->ReplacementFor_close();
+   void R::close() {
+      if(R) {
+         R->close();
       }
       else {
-         ReplacementFor_wlog("no socket to close!");
+         R("no socket to close!");
       }
-      ReplacementFor_pending_message_buffer.ReplacementFor_reset();
+      R_P_M.reset();
    }
 
-   bool ReplacementFor_psession::ReplacementFor_process_next_message(ReplacementFor_pixel_plugin_impl& ReplacementFor_impl, uint64_t ReplacementFor_count, uint32_t ReplacementFor_message_length) {
+   bool R::R_P_N(R_P_P& R, uint64_t count, uint32_t R_M) {
       try {
-         auto ReplacementFor_index = ReplacementFor_pending_message_buffer.ReplacementFor_read_index();
-         ReplacementFor_rcv_buffer.ReplacementFor_resize(ReplacementFor_message_length);
+         auto index = R_P_M.R_R();
+         R_R.resize(R_M);
 
-         ReplacementFor_pending_message_buffer.ReplacementFor_peek(ReplacementFor_rcv_buffer.ReplacementFor_data(), ReplacementFor_message_length, ReplacementFor_index);
-         ReplacementFor_pending_message_buffer.ReplacementFor_advance_read_ptr(ReplacementFor_message_length);
+         R_P_M.peek(R_R.data(), R_M, index);
+         R_P_M.R_A_R(R_M);
 
-         ReplacementFor_string ReplacementFor_s(ReplacementFor_rcv_buffer.ReplacementFor_data(), ReplacementFor_rcv_buffer.ReplacementFor_size());
-         std::ReplacementFor_cout << "rev_message_body = " << ReplacementFor_s << std::ReplacementFor_endl;
-         ReplacementFor_fc::ReplacementFor_variant ReplacementFor_cmd = ReplacementFor_fc::ReplacementFor_json::ReplacementFor_from_string(ReplacementFor_s);
+         string s(R_R.data(), R_R.size());
+         std::R << "rev_message_body = " << s << std::endl;
+         R::R R = R::R::R_F(s);
 
-          ReplacementFor_message_handle* ReplacementFor_handle = ReplacementFor_get_pixel_message_handle(ReplacementFor_cmd["type"].ReplacementFor_as_string());
+          R_M* R = R_G_P_M(R["type"].R_A());
          
-         ReplacementFor_string ReplacementFor_type_string = ReplacementFor_cmd["type"].ReplacementFor_as_string();         
+         string R_T = R["type"].R_A();     
 
-          ReplacementFor_psession_wptr ReplacementFor_session(ReplacementFor_shared_from_this());
-          ReplacementFor_handle->ReplacementFor_handle_message(ReplacementFor_cmd, [ReplacementFor_count, ReplacementFor_session, ReplacementFor_type_string, this](const ReplacementFor_string& ReplacementFor_msg ) {
-             try {
-                auto ReplacementFor_s = ReplacementFor_session.ReplacementFor_lock();
-                if(!ReplacementFor_s) throw ReplacementFor_fc::ReplacementFor_exception();
-                auto ReplacementFor_info = ReplacementFor_my_impl->ReplacementFor_transction_info_form_msg(ReplacementFor_msg);
-               
-               if((ReplacementFor_type_string == ReplacementFor_string("transfer")) && ReplacementFor_info) 
+         if((R_T == string("dump_tables")) ) 
                      
-                     std::ReplacementFor_cout << "[ inserting: block_num  =" << ReplacementFor_info->ReplacementFor_first << "\t txs_id = "<< ReplacementFor_info->ReplacementFor_second << std::ReplacementFor_endl;
+                     std::R << "[ **** Receive counter  =" << count  << " **** " << std::endl;    
 
-                if(ReplacementFor_info) {
-                   ReplacementFor_my_impl->ReplacementFor_get_transcation_infos().ReplacementFor_insert(ReplacementFor_pixel_plugin_impl::ReplacementFor_transcation_info{ReplacementFor_count, ReplacementFor_info->ReplacementFor_first, ReplacementFor_info->ReplacementFor_second, ReplacementFor_type_string, ReplacementFor_s});
+          R_P R(shared_from_this());
+          R->R_H(R, [count, R, R_T, this](const string& R ) {
+             try {
+                auto s = R.lock();
+                if(!s) throw R::exception();
+                auto R = R_M->R_T_I_F(R);
+               
+               if((R_T == string("transfer")) && R) 
+                     
+                     std::R << "[ inserting: block_num  =" << R->first << "\t txs_id = "<< R->second << std::endl;
 
-                   ReplacementFor_string ReplacementFor_ret = ReplacementFor_string("{\"code\":\"0\",\"cmd_type\":\"") + ReplacementFor_type_string + "\",\"transaction_id\":\"" + ReplacementFor_info->ReplacementFor_second + "\",\"confirmed\":\"waitting\"}";
-                   ReplacementFor_s->ReplacementFor_send_response(ReplacementFor_count, ReplacementFor_ret);
+                if(R) {
+                   R_M->R_G_T().insert(R_P_P::R_T{count, R->first, R->second, R_T, s});
+
+                   string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R_T + "\",\"transaction_id\":\"" + R->second + "\",\"confirmed\":\"waitting\"}";
+                   s->R_S(count, R);
                 }else {
-                   ReplacementFor_s->ReplacementFor_send_response(ReplacementFor_count, ReplacementFor_msg);
+                   s->R_S(count, R);
                 }
              }
-             catch(const std::ReplacementFor_exception &ReplacementFor_ex) {
-                ReplacementFor_elog("Exception in pixel handle_message to ${s}", ("s",ReplacementFor_ex.ReplacementFor_what()));
-                ReplacementFor_close();
+             catch(const std::exception &R) {
+                R("Exception in pixel handle_message to ${s}", ("s",R.what()));
+                close();
              }
-             catch(const ReplacementFor_fc::ReplacementFor_exception &ReplacementFor_ex) {
-                ReplacementFor_elog("Exception in pixel handle_message to ${s}", ("s",ReplacementFor_ex.ReplacementFor_to_string()));
-                ReplacementFor_close();
+             catch(const R::exception &R) {
+                R("Exception in pixel handle_message to ${s}", ("s",R.to_string()));
+                close();
              }
              catch(...) {
-                ReplacementFor_elog("Exception in pixel handle_message." );
-                ReplacementFor_close();
+                R("Exception in pixel handle_message." );
+                close();
              }
           });
-      } catch(  const ReplacementFor_fc::ReplacementFor_exception& ReplacementFor_e ) {
-         ReplacementFor_edump((ReplacementFor_e.ReplacementFor_to_detail_string() ));
-         ReplacementFor_impl.ReplacementFor_close( ReplacementFor_shared_from_this() );
+      } catch(  const R::exception& R ) {
+         R((R.R_T_D() ));
+         R.close( shared_from_this() );
          return false;
       }
       return true;
    }
 
-   bool ReplacementFor_psession::ReplacementFor_send_response(const uint64_t ReplacementFor_count, const ReplacementFor_string& ReplacementFor_msg) {
-       if(ReplacementFor_msg.ReplacementFor_empty()) {
-          ReplacementFor_elog("Send msg is empty." );
+   bool R::R_S(const uint64_t count, const string& R) {
+       if(R.empty()) {
+          R("Send msg is empty." );
           return false;
        }
 
-       int ReplacementFor_len = ReplacementFor_msg.ReplacementFor_size();
-       ReplacementFor_shared_ptr<ReplacementFor_vector<char>> ReplacementFor_buf = ReplacementFor_make_shared<ReplacementFor_vector<char>>();
-       ReplacementFor_buf->ReplacementFor_reserve(ReplacementFor_message_header_size+ReplacementFor_len);
+       int R = R.size();
+       shared_ptr<vector<char>> R = make_shared<vector<char>>();
+       R->reserve(R_M_H+R);
 
-       for( int ReplacementFor_i = 0; ReplacementFor_i < ReplacementFor_message_length_size; ++ReplacementFor_i) { ReplacementFor_buf->ReplacementFor_push_back(char(ReplacementFor_len >> (ReplacementFor_i*8) & 0xff)); }
-       for( int ReplacementFor_i = 0; ReplacementFor_i < ReplacementFor_message_counter_size; ++ReplacementFor_i) { ReplacementFor_buf->ReplacementFor_push_back(char(ReplacementFor_count >> (ReplacementFor_i*8) & 0xff)); }
-       for(auto& ReplacementFor_c : ReplacementFor_msg) ReplacementFor_buf->ReplacementFor_push_back(ReplacementFor_c);
+       for( int R = 0; R < R_M_L; ++R) { R->push_back(char(R >> (R*8) & 0xff)); }
+       for( int R = 0; R < R_M_C; ++R) { R->push_back(char(count >> (R*8) & 0xff)); }
+       for(auto& c : R) R->push_back(c);
 
-       ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_async_write( *ReplacementFor_socket,
-          ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_buffer( ReplacementFor_buf->ReplacementFor_data(), ReplacementFor_buf->ReplacementFor_size()),
-          [ReplacementFor_buf](const ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code& ReplacementFor_ec, ReplacementFor_size_t ReplacementFor_bytes_transferred) {
-             if(ReplacementFor_ec) {
-                ReplacementFor_dlog("psession send error. the send len size: ${size}, ${error}, ${buf_size}",
-                      ("size", ReplacementFor_bytes_transferred)("error",ReplacementFor_ec.ReplacementFor_message())("buf_size", ReplacementFor_buf->ReplacementFor_size()));
+       R::R::R_A( *R,
+          R::R::R( R->data(), R->size()),
+          [R](const R::system::error_code& R, size_t R_B) {
+             if(R) {
+                R("psession send error. the send len size: ${size}, ${error}, ${buf_size}",
+                      ("size", R_B)("error",R.message())("buf_size", R->size()));
                 return;
              }
           }
@@ -342,387 +366,449 @@ namespace ReplacementFor_eosio {
       return true;
    }
 
-   ReplacementFor_boost::ReplacementFor_optional<std::ReplacementFor_pair<uint32_t, ReplacementFor_string>> ReplacementFor_pixel_plugin_impl::ReplacementFor_transction_info_form_msg(const ReplacementFor_string& ReplacementFor_msg) {
-      ReplacementFor_boost::ReplacementFor_optional<std::ReplacementFor_pair<uint32_t, ReplacementFor_string>> ReplacementFor_info;
+   R::R<std::pair<uint32_t, string>> R_P_P::R_T_I_F(const string& R) {
+      R::R<std::pair<uint32_t, string>> R;
 
-      std::ReplacementFor_stringstream ReplacementFor_ss(ReplacementFor_msg);
-      ReplacementFor_boost::ReplacementFor_property_tree::ReplacementFor_ptree ReplacementFor_root;
-      ReplacementFor_boost::ReplacementFor_property_tree::ReplacementFor_ptree ReplacementFor_processed;
-      ReplacementFor_boost::ReplacementFor_property_tree::ReplacementFor_read_json<ReplacementFor_boost::ReplacementFor_property_tree::ReplacementFor_ptree>(ReplacementFor_ss, ReplacementFor_root);
+      std::stringstream R(R);
+      R::R_P::R R;
+      R::R_P::R R;
+      R::R_P::R_R<R::R_P::R>(R, R);
 
-      if(ReplacementFor_root.ReplacementFor_find("transaction_id") != ReplacementFor_root.ReplacementFor_not_found() && ReplacementFor_root.ReplacementFor_find("processed") != ReplacementFor_root.ReplacementFor_not_found()) {
-         ReplacementFor_string ReplacementFor_id = ReplacementFor_root.get<ReplacementFor_string>("transaction_id");
+      if(R.find("transaction_id") != R.R_N() && R.find("processed") != R.R_N()) {
+         string id = R.get<string>("transaction_id");
 
-         ReplacementFor_processed = ReplacementFor_root.ReplacementFor_get_child("processed");
-         if(ReplacementFor_processed.ReplacementFor_find("block_num") != ReplacementFor_processed.ReplacementFor_not_found()) {
-            uint32_t ReplacementFor_block_num = ReplacementFor_processed.get<uint32_t>("block_num");
-            ReplacementFor_info.ReplacementFor_emplace(std::ReplacementFor_make_pair(ReplacementFor_block_num, ReplacementFor_id));
+         R = R.R_G("processed");
+         if(R.find("block_num") != R.R_N()) {
+            uint32_t R_B = R.get<uint32_t>("block_num");
+            R.emplace(std::make_pair(R_B, id));
          }
       }
 
-      return ReplacementFor_info;
+      return R;
    }
 
-   bool ReplacementFor_pixel_plugin_impl::ReplacementFor_start_session( ReplacementFor_psession_ptr ReplacementFor_con ) {
-      ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_ip::ReplacementFor_tcp::ReplacementFor_no_delay ReplacementFor_nodelay( true );
-      ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec;
-      ReplacementFor_con->ReplacementFor_socket->ReplacementFor_set_option( ReplacementFor_nodelay, ReplacementFor_ec );
-      if (ReplacementFor_ec) {
-         ReplacementFor_elog( "connection failed to ${peer}: ${error}",
-               ( "peer", ReplacementFor_con->ReplacementFor_peer_name())("error",ReplacementFor_ec.ReplacementFor_message()));
-         ReplacementFor_close(ReplacementFor_con);
+   bool R_P_P::R_S( R_P R ) {
+      R::R::R::R::R_N R( true );
+      R::system::error_code R;
+      R->R->R_S( R, R );
+      if (R) {
+         R( "connection failed to ${peer}: ${error}",
+               ( "peer", R->R_P())("error",R.message()));
+         close(R);
          return false;
       }
       else {
-         ReplacementFor_start_read_message( ReplacementFor_con );
-         ++ReplacementFor_started_sessions;
+         R_S_R( R );
+         ++R_S;
          return true;
       }
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_start_listen_loop( ) {
-      auto ReplacementFor_socket = std::ReplacementFor_make_shared<ReplacementFor_tcp::ReplacementFor_socket>( std::ReplacementFor_ref( ReplacementFor_app().ReplacementFor_get_io_service() ) );
-      ReplacementFor_acceptor->ReplacementFor_async_accept( *ReplacementFor_socket, [ReplacementFor_socket,this]( ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec ) {
-            if( !ReplacementFor_ec ) {
-               uint32_t ReplacementFor_visitors = 0;
-               uint32_t ReplacementFor_from_addr = 0;
-               auto ReplacementFor_paddr = ReplacementFor_socket->ReplacementFor_remote_endpoint(ReplacementFor_ec).ReplacementFor_address();
-               if (ReplacementFor_ec) {
-                  ReplacementFor_fc_elog(ReplacementFor_plogger,"Error getting remote endpoint: ${m}",("m", ReplacementFor_ec.ReplacementFor_message()));
+   void R_P_P::R_S_L( ) {
+      auto R = std::make_shared<R::R>( std::ref( app().R_G_I() ) );
+      R->R_A( *R, [R,this]( R::system::error_code R ) {
+            if( !R ) {
+               uint32_t R = 0;
+               uint32_t R_F = 0;
+               auto R = R->R_R(R).address();
+               std::R << "The peer-addr is " << R << std::endl;
+               if (R) {
+                  R_F(R,"Error getting remote endpoint: ${m}",("m", R.message()));
                }
                else {
-                  ++ReplacementFor_num_clients;
-                  ReplacementFor_psession_ptr ReplacementFor_c = std::ReplacementFor_make_shared<ReplacementFor_psession>( ReplacementFor_socket );
-                  ReplacementFor_connections.ReplacementFor_insert( ReplacementFor_c );
-                  ReplacementFor_start_session( ReplacementFor_c );
+                  ++R_N;
+                  R_P c = std::make_shared<R>( R );
+                  R.insert( c );
+                  R_S( c );
                }
             } else {
-               ReplacementFor_elog( "Error accepting connection: ${m}",( "m", ReplacementFor_ec.ReplacementFor_message() ) );
+               R( "Error accepting connection: ${m}",( "m", R.message() ) );
                
-               switch (ReplacementFor_ec.ReplacementFor_value()) {
-                  case ReplacementFor_ECONNABORTED:
-                  case ReplacementFor_EMFILE:
-                  case ReplacementFor_ENFILE:
-                  case ReplacementFor_ENOBUFS:
-                  case ReplacementFor_ENOMEM:
-                  case ReplacementFor_EPROTO:
+               switch (R.value()) {
+                  case R:
+                  case EMFILE:
+                  case ENFILE:
+                  case R:
+                  case ENOMEM:
+                  case R:
                      break;
                   default:
                      return;
                }
             }
-            ReplacementFor_start_listen_loop();
+            R_S_L();
          });
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_start_read_message( ReplacementFor_psession_ptr ReplacementFor_conn ) {
+   void R_P_P::R_S_R( R_P R ) {
 
       try {
-         if(!ReplacementFor_conn->ReplacementFor_socket) {
+         if(!R->R) {
             return;
          }
-         ReplacementFor_psession_wptr ReplacementFor_weak_conn = ReplacementFor_conn;
+         R_P R_W = R;
 
-         std::ReplacementFor_size_t ReplacementFor_minimum_read = ReplacementFor_conn->ReplacementFor_outstanding_read_bytes ? *ReplacementFor_conn->ReplacementFor_outstanding_read_bytes : ReplacementFor_message_header_size;
-         auto ReplacementFor_completion_handler = [ReplacementFor_minimum_read](ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec, std::ReplacementFor_size_t ReplacementFor_bytes_transferred) -> std::ReplacementFor_size_t {
-            if (ReplacementFor_ec || ReplacementFor_bytes_transferred >= ReplacementFor_minimum_read ) {
+         std::size_t R_M = R->R_O_R ? *R->R_O_R : R_M_H;
+         auto R_C = [R_M](R::system::error_code R, std::size_t R_B) -> std::size_t {
+            if (R || R_B >= R_M ) {
                return 0;
             } else {
-               return ReplacementFor_minimum_read - ReplacementFor_bytes_transferred;
+               return R_M - R_B;
             }
          };
 
-         ReplacementFor_boost::ReplacementFor_asio::ReplacementFor_async_read(*ReplacementFor_conn->ReplacementFor_socket,
-            ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_get_buffer_sequence_for_boost_async_read(), ReplacementFor_completion_handler,
-            [this,ReplacementFor_weak_conn]( ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec, std::ReplacementFor_size_t ReplacementFor_bytes_transferred ) {
-               auto ReplacementFor_conn = ReplacementFor_weak_conn.ReplacementFor_lock();
-               if (!ReplacementFor_conn) {
+         R::R::R_A(*R->R,
+            R->R_P_M.R_G_B_S_F_B_A(), R_C,
+            [this,R_W]( R::system::error_code R, std::size_t R_B ) {
+               auto R = R_W.lock();
+               if (!R) {
                   return;
                }
 
-               ReplacementFor_conn->ReplacementFor_outstanding_read_bytes.ReplacementFor_reset();
+               R->R_O_R.reset();
 
                try {
-                  if( !ReplacementFor_ec ) {
-                     if (ReplacementFor_bytes_transferred > ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_bytes_to_write()) {
-                        ReplacementFor_elog("async_read_some callback: bytes_transfered = ${bt}, buffer.bytes_to_write = ${btw}",
-                             ("bt",ReplacementFor_bytes_transferred)("btw",ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_bytes_to_write()));
+                  if( !R ) {
+                     if (R_B > R->R_P_M.R_B_T()) {
+                        R("async_read_some callback: bytes_transfered = ${bt}, buffer.bytes_to_write = ${btw}",
+                             ("bt",R_B)("btw",R->R_P_M.R_B_T()));
                      }
+                     std::R << "bytes_transferred = " << R_B << std::endl;  
+                     R->R_P_M.R_A_W(R_B);
+                     while (R->R_P_M.R_B_T() > 0) {
+                        uint32_t R_B_I = R->R_P_M.R_B_T();
 
-                     ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_advance_write_ptr(ReplacementFor_bytes_transferred);
-                     while (ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_bytes_to_read() > 0) {
-                        uint32_t ReplacementFor_bytes_in_buffer = ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_bytes_to_read();
-
-                        if (ReplacementFor_bytes_in_buffer < ReplacementFor_message_header_size) {
-                           ReplacementFor_conn->ReplacementFor_outstanding_read_bytes.ReplacementFor_emplace(ReplacementFor_message_header_size - ReplacementFor_bytes_in_buffer);
+                        if (R_B_I < R_M_H) {
+                           R->R_O_R.emplace(R_M_H - R_B_I);
+                           std::R << " bytes_in_buffer < message_header_size " << std::endl;
                            break;
                         } else {
-                           uint32_t ReplacementFor_message_length;
-                           auto ReplacementFor_index = ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_read_index();
-                           ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_peek(&ReplacementFor_message_length, sizeof(ReplacementFor_message_length), ReplacementFor_index);
-                           if(ReplacementFor_message_length > ReplacementFor_def_send_buffer_size*2 || ReplacementFor_message_length == 0) {
-                              ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec;
-                              ReplacementFor_elog("incoming message length unexpected (${i}), from ${p}", ("i", ReplacementFor_message_length)("p",ReplacementFor_boost::ReplacementFor_lexical_cast<std::ReplacementFor_string>(ReplacementFor_conn->ReplacementFor_socket->ReplacementFor_remote_endpoint(ReplacementFor_ec))));
-                              ReplacementFor_close(ReplacementFor_conn);
+                           uint32_t R_M;
+                           auto index = R->R_P_M.R_R();
+                           R->R_P_M.peek(&R_M, sizeof(R_M), index);
+                           if(R_M > R_D_S_B*2 || R_M == 0) {
+                              R::system::error_code R;
+                              R("incoming message length unexpected (${i}), from ${p}", ("i", R_M)("p",R::R_L<std::string>(R->R->R_R(R))));
+                              close(R);
                               return;
                            }
 
-                           auto ReplacementFor_total_message_bytes = ReplacementFor_message_length + ReplacementFor_message_header_size;
+                           auto R_T_M = R_M + R_M_H;
 
-                           if (ReplacementFor_bytes_in_buffer >= ReplacementFor_total_message_bytes) {
-                              ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_advance_read_ptr(ReplacementFor_message_length_size);
+                           if (R_B_I >= R_T_M) {
+                              R->R_P_M.R_A_R(R_M_L);
 
-                              uint64_t ReplacementFor_count;
-                              auto ReplacementFor_index = ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_read_index();
-                              ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_peek(&ReplacementFor_count, sizeof(ReplacementFor_count), ReplacementFor_index);
+                              uint64_t count;
+                              auto index = R->R_P_M.R_R();
+                              R->R_P_M.peek(&count, sizeof(count), index);
 
-                              ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_advance_read_ptr(ReplacementFor_message_counter_size);
-                              if (!ReplacementFor_conn->ReplacementFor_process_next_message(*this, ReplacementFor_count, ReplacementFor_message_length)) {
+                              R->R_P_M.R_A_R(R_M_C);
+                              if (!R->R_P_N(*this, count, R_M)) {
                                  return;
                               }
                            } else {
-                              auto ReplacementFor_outstanding_message_bytes = ReplacementFor_total_message_bytes - ReplacementFor_bytes_in_buffer;
-                              auto ReplacementFor_available_buffer_bytes = ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_bytes_to_write();
-                              if (ReplacementFor_outstanding_message_bytes > ReplacementFor_available_buffer_bytes) {
-                                 ReplacementFor_conn->ReplacementFor_pending_message_buffer.ReplacementFor_add_space( ReplacementFor_outstanding_message_bytes - ReplacementFor_available_buffer_bytes );
+                              auto R_O_M = R_T_M - R_B_I;
+                              auto R_A_B = R->R_P_M.R_B_T();
+                              if (R_O_M > R_A_B) {
+                                 R->R_P_M.R_A( R_O_M - R_A_B );
                               }
 
-                              ReplacementFor_conn->ReplacementFor_outstanding_read_bytes.ReplacementFor_emplace(ReplacementFor_outstanding_message_bytes);
+                              R->R_O_R.emplace(R_O_M);
                               break;
                            }
                         }
                      }
-                     ReplacementFor_start_read_message(ReplacementFor_conn);
+                     R_S_R(R);
                   } else {
-                     auto ReplacementFor_pname = ReplacementFor_conn->ReplacementFor_peer_name();
-                     if (ReplacementFor_ec.ReplacementFor_value() != ReplacementFor_boost::ReplacementFor_asio::error::ReplacementFor_eof) {
-                        ReplacementFor_elog( "Error reading message from ${p}: ${m}",("p",ReplacementFor_pname)( "m", ReplacementFor_ec.ReplacementFor_message() ) );
+                     auto R = R->R_P();
+                     if (R.value() != R::R::error::eof) {
+                        R( "Error reading message from ${p}: ${m}",("p",R)( "m", R.message() ) );
                      } else {
-                        ReplacementFor_ilog( "Peer ${p} closed connection",("p",ReplacementFor_pname) );
+                        R( "Peer ${p} closed connection",("p",R) );
                      }
-                     ReplacementFor_close( ReplacementFor_conn );
+                     close( R );
                   }
                }
-               catch(const std::ReplacementFor_exception &ReplacementFor_ex) {
-                  ReplacementFor_string ReplacementFor_pname = ReplacementFor_conn ? ReplacementFor_conn->ReplacementFor_peer_name() : "no connection name";
-                  ReplacementFor_elog("Exception in handling read data from ${p} ${s}",("p",ReplacementFor_pname)("s",ReplacementFor_ex.ReplacementFor_what()));
-                  ReplacementFor_close( ReplacementFor_conn );
+               catch(const std::exception &R) {
+                  string R = R ? R->R_P() : "no connection name";
+                  R("Exception in handling read data from ${p} ${s}",("p",R)("s",R.what()));
+                  close( R );
                }
-               catch(const ReplacementFor_fc::ReplacementFor_exception &ReplacementFor_ex) {
-                  ReplacementFor_string ReplacementFor_pname = ReplacementFor_conn ? ReplacementFor_conn->ReplacementFor_peer_name() : "no connection name";
-                  ReplacementFor_elog("Exception in handling read data ${s}", ("p",ReplacementFor_pname)("s",ReplacementFor_ex.ReplacementFor_to_string()));
-                  ReplacementFor_close( ReplacementFor_conn );
+               catch(const R::exception &R) {
+                  string R = R ? R->R_P() : "no connection name";
+                  R("Exception in handling read data ${s}", ("p",R)("s",R.to_string()));
+                  close( R );
                }
                catch (...) {
-                  ReplacementFor_string ReplacementFor_pname = ReplacementFor_conn ? ReplacementFor_conn->ReplacementFor_peer_name() : "no connection name";
-                  ReplacementFor_elog( "Undefined exception hanlding the read data from connection ${p}",( "p",ReplacementFor_pname));
-                  ReplacementFor_close( ReplacementFor_conn );
+                  string R = R ? R->R_P() : "no connection name";
+                  R( "Undefined exception hanlding the read data from connection ${p}",( "p",R));
+                  close( R );
                }
             } );
       } catch (...) {
-         ReplacementFor_string ReplacementFor_pname = ReplacementFor_conn ? ReplacementFor_conn->ReplacementFor_peer_name() : "no connection name";
-         ReplacementFor_elog( "Undefined exception handling reading ${p}",("p",ReplacementFor_pname) );
-         ReplacementFor_close( ReplacementFor_conn );
+         string R = R ? R->R_P() : "no connection name";
+         R( "Undefined exception handling reading ${p}",("p",R) );
+         close( R );
       }
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_is_transaction_success(ReplacementFor_psession_ptr ReplacementFor_c) {
-      ReplacementFor_transaction_check->ReplacementFor_expires_from_now( ReplacementFor_resp_expected_period);
-      ReplacementFor_transaction_check->ReplacementFor_async_wait( [this](ReplacementFor_boost::ReplacementFor_system::ReplacementFor_error_code ReplacementFor_ec) {
-         if( !ReplacementFor_ec) {
+   void R_P_P::R_I_T(R_P c) {
+      R_T->R_E_F( R_R_E);
+      R_T->R_A( [this](R::system::error_code R) {
+         if( !R) {
 
          }
          else {
-            ReplacementFor_elog( "Error connection: ${m}",( "m", ReplacementFor_ec.ReplacementFor_message()));
+            R( "Error connection: ${m}",( "m", R.message()));
          }
       });
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_accepted_block_header(const ReplacementFor_block_state_ptr& ReplacementFor_block) {
+   void R_P_P::R_A_B(const R_B_S& R) {
       
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_accepted_block(const ReplacementFor_block_state_ptr& ReplacementFor_block) {
-      uint32_t ReplacementFor_irr_num = ReplacementFor_chain_plug->ReplacementFor_chain().ReplacementFor_last_irreversible_block_num();
-      auto ReplacementFor_upper_bound = ReplacementFor_transcation_infos.ReplacementFor_upper_bound({0, ReplacementFor_block->ReplacementFor_block_num, "", "", ReplacementFor_psession_wptr()});
-      for(auto ReplacementFor_it =  ReplacementFor_transcation_infos.ReplacementFor_begin(); ReplacementFor_it != ReplacementFor_upper_bound;) {
-         if(ReplacementFor_it->ReplacementFor_block_num <= ReplacementFor_irr_num) {
-            const ReplacementFor_transcation_info& ReplacementFor_info = *ReplacementFor_it;
-            auto ReplacementFor_conn = ReplacementFor_info.ReplacementFor_s.ReplacementFor_lock();
-            if(ReplacementFor_conn) {
-            ReplacementFor_signed_block_ptr ReplacementFor_sb = ReplacementFor_chain_plug->ReplacementFor_chain().ReplacementFor_fetch_block_by_number(ReplacementFor_info.ReplacementFor_block_num);
-               if (ReplacementFor_sb){
-                  if( !ReplacementFor_sb->ReplacementFor_transactions.ReplacementFor_empty())
+   void R_P_P::R_A(const R_B_S& R) {
+      uint32_t flag = 0;
+      static uint32_t R_S_S = 0;
+      static uint32_t R_S_F = 0;
+      static uint32_t R_T = 0;
+      uint32_t R_I = R_C->R().R_L_I_B();
+      auto upper_bound = R_T.upper_bound({0, R->R_B, "", "", R_P()});
+      for (auto R : R_T)
+      {
+         std::R << "block num is " << R.R_B << "\t type is " << R.type << std::endl; 
+      }
+      for(auto R =  R_T.begin(); R != upper_bound;) {
+         
+         std::R << "The transcation_info size = " << R_T.size() << std::endl;
+         std::R << "*it block id = " << R->R_B << "\tComing block_id =" << R->R_B << "\t irr_block_num = " << R_I <<  std::endl;
+         if(R->R_B <= R_I) {
+            std::R << "1 -----------" << std::endl;
+            const R_T& R = *R;
+            auto R = R.s.lock();
+            if(R) {
+            std::R << "2 -----------" << std::endl;
+            R_S_B R = R_C->R().R_F_B_B(R.R_B);
+               if (R){
+                  std::R << "3 -----------" << std::endl;
+                  if( !R->R.empty())
                   {
-                     for(auto& ReplacementFor_transaction: ReplacementFor_sb->ReplacementFor_transactions) {
-                           ReplacementFor_transaction_num ++;
-                           std::ReplacementFor_cout << "[transaction_num ] = " << ReplacementFor_transaction_num << std::ReplacementFor_endl;
-                           if((ReplacementFor_transaction.ReplacementFor_trx.ReplacementFor_contains<ReplacementFor_packed_transaction>() && ReplacementFor_info.ReplacementFor_id == ReplacementFor_transaction.ReplacementFor_trx.get<ReplacementFor_packed_transaction>().ReplacementFor_id().ReplacementFor_str())||
-                              (ReplacementFor_transaction.ReplacementFor_trx.ReplacementFor_contains<ReplacementFor_transaction_id_type>() && ReplacementFor_info.ReplacementFor_id == ReplacementFor_transaction.ReplacementFor_trx.get<ReplacementFor_transaction_id_type>().ReplacementFor_str())) {
-                           ReplacementFor_string ReplacementFor_ret = ReplacementFor_string("{\"code\":\"0\",\"cmd_type\":\"") + ReplacementFor_info.ReplacementFor_type + "\",\"transaction_id\":\"" + ReplacementFor_info.ReplacementFor_id + "\",\"confirmed\":\"successed\"}";
+                     for(auto& R: R->R) {
+                           R_T ++;
+                           std::R << "[transaction_num ] = " << R_T << std::endl;
+                           if((R.R.R<R_P>() && R.id == R.R.get<R_P>().id().str())||
+                              (R.R.R<R_T_I>() && R.id == R.R.get<R_T_I>().str())) {
+                           string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"successed\"}";
 
-                           if(ReplacementFor_info.ReplacementFor_type == ReplacementFor_string("create_system_acct"))
+                           if(R.type == string("create_system_acct"))
                            {
-                              ReplacementFor_ret = ReplacementFor_string("{\"code\":\"0\",\"cmd_type\":\"") + ReplacementFor_info.ReplacementFor_type + "\",\"transaction_id\":\"" + ReplacementFor_info.ReplacementFor_id + "\",\"account_confirmed\":\"successed\"}";
+                              R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"account_confirmed\":\"successed\"}";
                            } 
-                           ReplacementFor_conn->ReplacementFor_send_response(ReplacementFor_info.ReplacementFor_count, ReplacementFor_ret);
-                           ReplacementFor_send_succeed_num ++;
-                           ReplacementFor_flag ++;
+                           R->R_S(R.count, R);
+                           R_S_S ++;
+                           flag ++;
                            
-                           std::ReplacementFor_cout << "[send_succeed_num = ]" << ReplacementFor_send_succeed_num << std::ReplacementFor_endl;
-                           std::ReplacementFor_cout << ReplacementFor_ret << std::ReplacementFor_endl;
+                           std::R << "[send_succeed_num = ]" << R_S_S << std::endl;
+                           std::R << R << std::endl;
                            
+                        } else {
+                              R << "\n into fixed next block ---------------- 3 \n";
+                              R_S_B R_S = R_C->R().R_F_B_B(R.R_B + 1);
+                              if(R_S){
+                                  for(auto& R_T: R_S->R) {                          
+                                    if((R_T.R.R<R_P>() && R.id == R_T.R.get<R_P>().id().str())||
+                                       (R_T.R.R<R_T_I>() && R.id == R_T.R.get<R_T_I>().str())) {
+                                       R << "\n fixed next block succeed ---------------- 4 \n";
+                                       string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"successed\"}";
+                                       R->R_S(R.count, R);
+                                       R_S_S ++;
+                                       
+                                       std::R << "[send_succeed_num = ]" << R_S_S << std::endl;
+                                       std::R << R << std::endl;
+                                    }else{
+                                          
+                                          string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"failed\"}";
+                                          R->R_S(R.count, R);
+                                          R_S_F ++;
+                                          std::R << "[send_fail_num = ]" << R_S_F << std::endl;
+                                          
+                                          std::R << R << std::endl;
+                                    }
+                                 }
+                              }   
                         }
                      } 
-                  }
+                  } else{
+                     R << "\n into fixed next block ---------------- 1 \n";
+                     R_S_B R_S = R_C->R().R_F_B_B(R.R_B + 1);
+                     if(R_S){
+                        R << "\n into fixed next block ---------------- 2 \n";
+                        for(auto& R_T: R_S->R) {                          
+                           if((R_T.R.R<R_P>() && R.id == R_T.R.get<R_P>().id().str())||
+                              (R_T.R.R<R_T_I>() && R.id == R_T.R.get<R_T_I>().str())) {
+                              R << "\n fixed next block succeed ---------------- \n";
+                              string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"successed\"}";
+                              R->R_S(R.count, R);
+                              R_S_S ++;
+                              
+                              std::R << "[send_succeed_num = ]" << R_S_S << std::endl;
+                              std::R << R << std::endl;
+                           } 
+                        }
+                     }   
+                  } 
                } 
             }   
 
-            ReplacementFor_it = ReplacementFor_transcation_infos.ReplacementFor_erase(ReplacementFor_it);
+            R = R_T.erase(R);
          } else {
-               ++ReplacementFor_it;
+               ++R;
          } 
       }
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_accepted_transaction(const ReplacementFor_transaction_metadata_ptr& ReplacementFor_md) {
+   void R_P_P::R_A(const R_T_M& R) {
       
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_applied_transaction(const ReplacementFor_transaction_trace_ptr& ReplacementFor_txn) {
+   void R_P_P::R_A(const R_T_T& R) {
       
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_accepted_confirmation(const ReplacementFor_header_confirmation& ReplacementFor_head) {
+   void R_P_P::R_A(const R_H& R) {
       
    }
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_irreversible_block(const ReplacementFor_block_state_ptr&ReplacementFor_block) {}
+   void R_P_P::R_I(const R_B_S&R) {}
 
-   void ReplacementFor_pixel_plugin_impl::ReplacementFor_close( ReplacementFor_psession_ptr ReplacementFor_c ) {
-      if( ReplacementFor_c->ReplacementFor_peer_addr.ReplacementFor_empty( ) && ReplacementFor_c->ReplacementFor_socket->ReplacementFor_is_open() ) {
-         if (ReplacementFor_num_clients == 0) {
-            ReplacementFor_fc_wlog( ReplacementFor_plogger, "num_clients already at 0");
+   void R_P_P::close( R_P c ) {
+      if( c->R_P.empty( ) && c->R->R_I() ) {
+         if (R_N == 0) {
+            R_F( R, "num_clients already at 0");
          }
          else {
-            --ReplacementFor_num_clients;
+            --R_N;
          }
       }
-      ReplacementFor_c->ReplacementFor_close();
+      c->close();
    }
 
-   void ReplacementFor_pixel_plugin::ReplacementFor_plugin_initialize( const ReplacementFor_variables_map& ReplacementFor_options ) {
-      ReplacementFor_ilog("Initialize pixel plugin");
+   void R_P::R_P( const R_V& R ) {
+      R("Initialize pixel plugin");
       try {
-          if( ReplacementFor_options.ReplacementFor_count( "pixel-contract-name" ))
-            ReplacementFor_contract_name = ReplacementFor_options.ReplacementFor_at( "pixel-contract-name" ).ReplacementFor_as<ReplacementFor_string>();
+          if( R.count( "pixel-contract-name" ))
+            R_C = R.at( "pixel-contract-name" ).R<string>();
 
-          ReplacementFor_my->ReplacementFor_resp_expected_period = ReplacementFor_def_resp_expected_wait;
-          ReplacementFor_my->ReplacementFor_resolver = std::ReplacementFor_make_shared<ReplacementFor_tcp::ReplacementFor_resolver>( std::ReplacementFor_ref( ReplacementFor_app().ReplacementFor_get_io_service()));
+          R->R_R_E = R_D_R_E;
+          R->R = std::make_shared<R::R>( std::ref( app().R_G_I()));
 
-          ReplacementFor_tcp::ReplacementFor_resolver::ReplacementFor_query ReplacementFor_query( ReplacementFor_tcp::ReplacementFor_v4(), "0.0.0.0", "9527");
+          R::R::R R( R::R(), "0.0.0.0", "9528");
           
 
-         ReplacementFor_my->ReplacementFor_listen_endpoint = *ReplacementFor_my->ReplacementFor_resolver->ReplacementFor_resolve( ReplacementFor_query );
+         R->R_L = *R->R->R( R );
 
-         ReplacementFor_my->ReplacementFor_acceptor.ReplacementFor_reset( new ReplacementFor_tcp::ReplacementFor_acceptor( ReplacementFor_app().ReplacementFor_get_io_service()));
-         ReplacementFor_my->ReplacementFor_chain_plug = ReplacementFor_app().ReplacementFor_find_plugin<ReplacementFor_chain_plugin>();
+         R->R.reset( new R::R( app().R_G_I()));
+         R->R_C = app().R_F<R_C>();
 
-      } ReplacementFor_FC_LOG_AND_RETHROW()
+      } R_F_L_A()
    }
 
-   void ReplacementFor_pixel_plugin::ReplacementFor_plugin_startup() {
-      if( ReplacementFor_my->ReplacementFor_acceptor ) {
-         ReplacementFor_my->ReplacementFor_acceptor->ReplacementFor_open(ReplacementFor_my->ReplacementFor_listen_endpoint.ReplacementFor_protocol());
-         ReplacementFor_my->ReplacementFor_acceptor->ReplacementFor_set_option(ReplacementFor_tcp::ReplacementFor_acceptor::ReplacementFor_reuse_address(true));
+   void R_P::R_P() {
+      if( R->R ) {
+         R->R->open(R->R_L.R());
+         R->R->R_S(R::R::R_R(true));
          try {
-           ReplacementFor_my->ReplacementFor_acceptor->ReplacementFor_bind(ReplacementFor_my->ReplacementFor_listen_endpoint);
-         } catch (const std::ReplacementFor_exception& ReplacementFor_e) {
-           ReplacementFor_ilog("pixel_plugin::plugin_startup failed to bind to port ${port}",
-             ("port", ReplacementFor_my->ReplacementFor_listen_endpoint.ReplacementFor_port()));
-           throw ReplacementFor_e;
+           R->R->bind(R->R_L);
+         } catch (const std::exception& R) {
+           R("pixel_plugin::plugin_startup failed to bind to port ${port}",
+             ("port", R->R_L.R()));
+           throw R;
          }
-         ReplacementFor_my->ReplacementFor_acceptor->ReplacementFor_listen();
-         ReplacementFor_ilog("starting listener...");
-         ReplacementFor_my->ReplacementFor_start_listen_loop();
+         R->R->R();
+         R("starting listener...");
+         R->R_S_L();
       }
-      ReplacementFor_chain::ReplacementFor_controller&ReplacementFor_cc = ReplacementFor_my->ReplacementFor_chain_plug->ReplacementFor_chain();
+      R::R&R = R->R_C->R();
       {
 
-             ReplacementFor_cc.ReplacementFor_accepted_block.ReplacementFor_connect(  ReplacementFor_boost::ReplacementFor_bind(&ReplacementFor_pixel_plugin_impl::ReplacementFor_accepted_block, ReplacementFor_my.get(), ReplacementFor__1));
+             R.R_A.R(  R::bind(&R_P_P::R_A, R.get(), _1));
+
+
+
 
       }
    }
 
-   void ReplacementFor_pixel_plugin::ReplacementFor_plugin_shutdown() {
+   void R_P::R_P() {
       try {
-         ReplacementFor_ilog( "shutdown.." );
-         ReplacementFor_my->ReplacementFor_done = true;
-         if( ReplacementFor_my->ReplacementFor_acceptor ) {
-            ReplacementFor_ilog( "close acceptor" );
-            ReplacementFor_my->ReplacementFor_acceptor->ReplacementFor_close();
+         R( "shutdown.." );
+         R->R = true;
+         if( R->R ) {
+            R( "close acceptor" );
+            R->R->close();
 
-            ReplacementFor_ilog( "close ${s} connections",( "s",ReplacementFor_my->ReplacementFor_connections.ReplacementFor_size()) );
-            auto ReplacementFor_cons = ReplacementFor_my->ReplacementFor_connections;
-            for( auto ReplacementFor_con : ReplacementFor_cons ) {
-               ReplacementFor_my->ReplacementFor_close( ReplacementFor_con);
+            R( "close ${s} connections",( "s",R->R.size()) );
+            auto R = R->R;
+            for( auto R : R ) {
+               R->close( R);
             }
 
-            ReplacementFor_my->ReplacementFor_acceptor.ReplacementFor_reset(nullptr);
+            R->R.reset(nullptr);
          }
-         ReplacementFor_ilog( "exit shutdown" );
+         R( "exit shutdown" );
       }
-      ReplacementFor_FC_CAPTURE_AND_RETHROW()
+      R_F_C_A()
    }
 
-   void ReplacementFor_pixel_plugin::ReplacementFor_handle_exception(const char *ReplacementFor_call_name, const ReplacementFor_string& ReplacementFor_cmd, ReplacementFor_response_callback ReplacementFor_cb ) {
-      static bool ReplacementFor_verbose_errors = false;
+   void R_P::R_H(const char *R_C, const string& R, R_R R ) {
+      static bool R_V = false;
       try {
          try {
             throw;
-         } catch (ReplacementFor_chain::ReplacementFor_unsatisfied_authorization& ReplacementFor_e) {
-            ReplacementFor_error_results ReplacementFor_results{401, "UnAuthorized", ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_e, ReplacementFor_verbose_errors)};
-            ReplacementFor_cb( ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-         } catch (ReplacementFor_chain::ReplacementFor_tx_duplicate& ReplacementFor_e) {
-            ReplacementFor_error_results ReplacementFor_results{409, "Conflict", ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_e, ReplacementFor_verbose_errors)};
-            ReplacementFor_cb(ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-         } catch (ReplacementFor_fc::ReplacementFor_eof_exception& ReplacementFor_e) {
-            ReplacementFor_error_results ReplacementFor_results{422, "Unprocessable Entity", ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_e, ReplacementFor_verbose_errors)};
-            ReplacementFor_cb(ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-            ReplacementFor_dlog("Bad arguments: ${cmd}", ("cmd", ReplacementFor_cmd));
-         } catch (ReplacementFor_fc::ReplacementFor_exception& ReplacementFor_e) {
-            ReplacementFor_error_results ReplacementFor_results{500, "Internal Service Error", ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_e, ReplacementFor_verbose_errors)};
-            ReplacementFor_cb(ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-            if (ReplacementFor_e.ReplacementFor_code() != ReplacementFor_chain::ReplacementFor_greylist_net_usage_exceeded::ReplacementFor_code_value ) {
-               ReplacementFor_elog( "FC Exception encountered while processing pixel.${call}", ( "call", ReplacementFor_call_name ));
-               ReplacementFor_dlog( "Exception Details: ${e}", ("e", ReplacementFor_e.ReplacementFor_to_detail_string()));
+         } catch (R::R_U& R) {
+            R_E R{401, "UnAuthorized", R_E::R_E(R, R_V)};
+            R( R::R::to_string( R ));
+         } catch (R::R_T& R) {
+            R_E R{409, "Conflict", R_E::R_E(R, R_V)};
+            R(R::R::to_string( R ));
+         } catch (R::R_E& R) {
+            R_E R{422, "Unprocessable Entity", R_E::R_E(R, R_V)};
+            R(R::R::to_string( R ));
+            R("Bad arguments: ${cmd}", ("cmd", R));
+         } catch (R::exception& R) {
+            R_E R{500, "Internal Service Error", R_E::R_E(R, R_V)};
+            R(R::R::to_string( R ));
+            if (R.code() != R::R_G_N_U::R_C ) {
+               R( "FC Exception encountered while processing pixel.${call}", ( "call", R_C ));
+               R( "Exception Details: ${e}", ("e", R.R_T_D()));
             }
-         } catch (std::ReplacementFor_exception& ReplacementFor_e) {
-            ReplacementFor_error_results ReplacementFor_results{500, "Internal Service Error", ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_fc::ReplacementFor_exception( ReplacementFor_FC_LOG_MESSAGE( error, ReplacementFor_e.ReplacementFor_what())), ReplacementFor_verbose_errors)};
-            ReplacementFor_cb( ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-            ReplacementFor_elog( "STD Exception encountered while processing pixel.${call}", ( "call", ReplacementFor_call_name ));
-            ReplacementFor_dlog( "Exception Details: ${e}", ("e", ReplacementFor_e.ReplacementFor_what()));
+         } catch (std::exception& R) {
+            R_E R{500, "Internal Service Error", R_E::R_E(R::exception( R_F_L( error, R.what())), R_V)};
+            R( R::R::to_string( R ));
+            R( "STD Exception encountered while processing pixel.${call}", ( "call", R_C ));
+            R( "Exception Details: ${e}", ("e", R.what()));
          } catch (...) {
-            ReplacementFor_error_results ReplacementFor_results{500, "Internal Service Error",
-               ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_fc::ReplacementFor_exception( ReplacementFor_FC_LOG_MESSAGE( error, "Unknown Exception" )), ReplacementFor_verbose_errors)};
-            ReplacementFor_cb(ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-            ReplacementFor_elog( "Unknown Exception encountered while processing ${call}", ( "call", ReplacementFor_call_name ));
+            R_E R{500, "Internal Service Error",
+               R_E::R_E(R::exception( R_F_L( error, "Unknown Exception" )), R_V)};
+            R(R::R::to_string( R ));
+            R( "Unknown Exception encountered while processing ${call}", ( "call", R_C ));
          }
       } catch (...) {
-         ReplacementFor_error_results ReplacementFor_results{500, "Internal Service Error", ReplacementFor_error_results::ReplacementFor_error_info(ReplacementFor_fc::ReplacementFor_exception( ReplacementFor_FC_LOG_MESSAGE( error, "unknow")), ReplacementFor_verbose_errors)};
-         ReplacementFor_cb(ReplacementFor_fc::ReplacementFor_json::ReplacementFor_to_string( ReplacementFor_results ));
-         std::ReplacementFor_cerr << "Exception attempting to handle exception for pixel." << ReplacementFor_call_name << std::ReplacementFor_endl;
+         R_E R{500, "Internal Service Error", R_E::R_E(R::exception( R_F_L( error, "unknow")), R_V)};
+         R(R::R::to_string( R ));
+         std::R << "Exception attempting to handle exception for pixel." << R_C << std::endl;
       }
    }
 
 
-   ReplacementFor_pixel_plugin::ReplacementFor_pixel_plugin():ReplacementFor_my( new ReplacementFor_pixel_plugin_impl ) { ReplacementFor_my_impl = ReplacementFor_my.get();}
-   ReplacementFor_pixel_plugin::~ReplacementFor_pixel_plugin() {}
+   R_P::R_P():R( new R_P_P ) { R_M = R.get();}
+   R_P::~R_P() {}
 
-   void ReplacementFor_pixel_plugin::ReplacementFor_set_program_options( ReplacementFor_options_description&  , ReplacementFor_options_description& ReplacementFor_cfg )
+   void R_P::R_S_P( R_O&  , R_O& R )
    {
-      ReplacementFor_cfg.ReplacementFor_add_options()( "pixel-contract-name", ReplacementFor_bpo::ReplacementFor_value<ReplacementFor_string>()->ReplacementFor_default_value( "eospixels" ), "The name of pixel contract.");
-      ReplacementFor_cfg.ReplacementFor_add_options()( "pixel-team-name", ReplacementFor_bpo::ReplacementFor_value<ReplacementFor_string>()->ReplacementFor_default_value( "magicsteam11" ), "The name of pixel team.");
+      R.R_A()( "pixel-contract-name", R::value<string>()->R_D( "eospixels" ), "The name of pixel contract.");
+      R.R_A()( "pixel-team-name", R::value<string>()->R_D( "magicsteam11" ), "The name of pixel team.");
    }
 }
 
