@@ -174,13 +174,13 @@ namespace R {
       ~R();
       void R();
 
-      R_S              R;
+      R_S    R;
 
       R::R_M<1024*1024>    R_P_M;
-      R::R<std::size_t>        R_O_R;
-      vector<char>                     R_R;
+      R::R<std::size_t>    R_O_R;
+      vector<char>         R_R;
 
-      string                  R_P;
+      string                R_P;
       unique_ptr<R::R::R_S> R_R;
 
        
