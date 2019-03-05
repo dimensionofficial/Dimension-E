@@ -37,7 +37,7 @@ namespace R {
 }
 
 namespace R {
-   static R::R_A& R___P = app().R_R<R_P>();
+   static R::R_A& R__P = app().R_R<R_P>();
 
    using std::vector;
    using std::deque;
@@ -65,7 +65,7 @@ namespace R {
    public:
       unique_ptr<R::R>        R;
       R::R                    R_L;
-      uint32_t                         R_N = 0;
+      uint32_t                R_N = 0;
 
       std::map<R::R_P_K,
                R::R_P_K> R_P; 
@@ -74,13 +74,13 @@ namespace R {
       R_P R_F( string R )const;
 
       std::set< R_P >       R;
-      bool                             R = false;
+      bool                  R = false;
 
       unique_ptr<R::R::R_S> R_T;
       R::R::R_S::R   R_R_E;
 
       R_C*                 R_C = nullptr;
-      int                           R_S = 0;
+      int                  R_S = 0;
       shared_ptr<R::R>     R;
 
       bool R_S( R_P c );
