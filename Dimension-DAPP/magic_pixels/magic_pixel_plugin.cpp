@@ -174,7 +174,7 @@ namespace R {
       ~R();
       void R();
 
-      R_S              R;
+      R_S     R;
 
       R::R_M<1024*1024>    R_P_M;
       R::R<std::size_t>        R_O_R;
