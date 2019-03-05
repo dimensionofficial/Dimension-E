@@ -126,25 +126,25 @@ namespace R {
 #define R_P( R, FORMAT, ... ) \
   R_F_M_M \
    if( R.R_I( R::R_L::R ) ) \
-      R.log( R_F_L( R, R_P + FORMAT, R_____V_A__ (R->R_G_L()) ) ); \
+      R.log( R_F_L( R, R_P + FORMAT, R_V_A__ (R->R_G_L()) ) ); \
   R_F_M_M
 
 #define R_P( R, FORMAT, ... ) \
   R_F_M_M \
    if( R.R_I( R::R_L::R ) ) \
-      R.log( R_F_L( R, R_P + FORMAT, R_____V_A__ (R->R_G_L()) ) ); \
+      R.log( R_F_L( R, R_P + FORMAT, R_V_A__ (R->R_G_L()) ) ); \
   R_F_M_M
 
 #define R_P( R, FORMAT, ... ) \
   R_F_M_M \
    if( R.R_I( R::R_L::R ) ) \
-      R.log( R_F_L( R, R_P + FORMAT, R_____V_A__ (R->R_G_L()) ) ); \
+      R.log( R_F_L( R, R_P + FORMAT, R_V_A_ (R->R_G_L()) ) ); \
   R_F_M_M
 
 #define R_P( R, FORMAT, ... ) \
   R_F_M_M \
    if( R.R_I( R::R_L::error ) ) \
-      R.log( R_F_L( error, R_P + FORMAT, R_____V_A__ (R->R_G_L())) );   R_F_M_M
+      R.log( R_F_L( error, R_P + FORMAT, R_V_A__ (R->R_G_L())) );   R_F_M_M
 
    static R_P_P *R_M;
 
@@ -177,8 +177,8 @@ namespace R {
       R_S              R;
 
       R::R_M<1024*1024>    R_P_M;
-      R::R<std::size_t>        R_O_R;
-      vector<char>                     R_R;
+      R::R<std::size_t>    R_O_R;
+      vector<char>         R_R;
 
       string                  R_P;
       unique_ptr<R::R::R_S> R_R;
