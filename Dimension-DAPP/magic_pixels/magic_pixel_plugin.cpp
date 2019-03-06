@@ -183,32 +183,13 @@ namespace R {
       string                  R_P;
       unique_ptr<R::R::R_S> R_R;
 
-       
-
       const string R_P() {return R_P;}
       bool R();
       void close();
 
 
 
-        void R_F();
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
+      void R_F();
 
       bool R_P_N(R_P_P& R, uint64_t count, uint32_t R_M);
       bool R_S(uint64_t count, const string& R);
@@ -237,7 +218,6 @@ namespace R {
       }
    };
 
-   
 
    R::R( string R )
       : R( std::make_shared<R::R>( std::ref( app().R_G_I() ))),
