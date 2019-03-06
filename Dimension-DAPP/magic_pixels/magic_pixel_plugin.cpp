@@ -536,7 +536,6 @@ namespace R {
       R_T->R_E_F( R_R_E);
       R_T->R_A( [this](R::system::error_code R) {
          if( !R) {
-
          }
          else {
             R( "Error connection: ${m}",( "m", R.message()));
@@ -546,106 +545,6 @@ namespace R {
 
    void R_P_P::R_A_B(const R_B_S& R) {
       
-   }
-
-   void R_P_P::R_A(const R_B_S& R) {
-      uint32_t flag = 0;
-      static uint32_t R_S_S = 0;
-      static uint32_t R_S_F = 0;
-      static uint32_t R_T = 0;
-      uint32_t R_I = R_C->R().R_L_I_B();
-      auto upper_bound = R_T.upper_bound({0, R->R_B, "", "", R_P()});
-      for (auto R : R_T)
-      {
-         std::R << "block num is " << R.R_B << "\t type is " << R.type << std::endl; 
-      }
-      for(auto R =  R_T.begin(); R != upper_bound;) {
-         
-         std::R << "The transcation_info size = " << R_T.size() << std::endl;
-         std::R << "*it block id = " << R->R_B << "\tComing block_id =" << R->R_B << "\t irr_block_num = " << R_I <<  std::endl;
-         if(R->R_B <= R_I) {
-            std::R << "1 -----------" << std::endl;
-            const R_T& R = *R;
-            auto R = R.s.lock();
-            if(R) {
-            std::R << "2 -----------" << std::endl;
-            R_S_B R = R_C->R().R_F_B_B(R.R_B);
-               if (R){
-                  std::R << "3 -----------" << std::endl;
-                  if( !R->R.empty())
-                  {
-                     for(auto& R: R->R) {
-                           R_T ++;
-                           std::R << "[transaction_num ] = " << R_T << std::endl;
-                           if((R.R.R<R_P>() && R.id == R.R.get<R_P>().id().str())||
-                              (R.R.R<R_T_I>() && R.id == R.R.get<R_T_I>().str())) {
-                           string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"successed\"}";
-
-                           if(R.type == string("create_system_acct"))
-                           {
-                              R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"account_confirmed\":\"successed\"}";
-                           } 
-                           R->R_S(R.count, R);
-                           R_S_S ++;
-                           flag ++;
-                           
-                           std::R << "[send_succeed_num = ]" << R_S_S << std::endl;
-                           std::R << R << std::endl;
-                           
-                        } else {
-                              R << "\n into fixed next block ---------------- 3 \n";
-                              R_S_B R_S = R_C->R().R_F_B_B(R.R_B + 1);
-                              if(R_S){
-                                  for(auto& R_T: R_S->R) {                          
-                                    if((R_T.R.R<R_P>() && R.id == R_T.R.get<R_P>().id().str())||
-                                       (R_T.R.R<R_T_I>() && R.id == R_T.R.get<R_T_I>().str())) {
-                                       R << "\n fixed next block succeed ---------------- 4 \n";
-                                       string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"successed\"}";
-                                       R->R_S(R.count, R);
-                                       R_S_S ++;
-                                       
-                                       std::R << "[send_succeed_num = ]" << R_S_S << std::endl;
-                                       std::R << R << std::endl;
-                                    }else{
-                                          
-                                          string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"failed\"}";
-                                          R->R_S(R.count, R);
-                                          R_S_F ++;
-                                          std::R << "[send_fail_num = ]" << R_S_F << std::endl;
-                                          
-                                          std::R << R << std::endl;
-                                    }
-                                 }
-                              }   
-                        }
-                     } 
-                  } else{
-                     R << "\n into fixed next block ---------------- 1 \n";
-                     R_S_B R_S = R_C->R().R_F_B_B(R.R_B + 1);
-                     if(R_S){
-                        R << "\n into fixed next block ---------------- 2 \n";
-                        for(auto& R_T: R_S->R) {                          
-                           if((R_T.R.R<R_P>() && R.id == R_T.R.get<R_P>().id().str())||
-                              (R_T.R.R<R_T_I>() && R.id == R_T.R.get<R_T_I>().str())) {
-                              R << "\n fixed next block succeed ---------------- \n";
-                              string R = string("{\"code\":\"0\",\"cmd_type\":\"") + R.type + "\",\"transaction_id\":\"" + R.id + "\",\"confirmed\":\"successed\"}";
-                              R->R_S(R.count, R);
-                              R_S_S ++;
-                              
-                              std::R << "[send_succeed_num = ]" << R_S_S << std::endl;
-                              std::R << R << std::endl;
-                           } 
-                        }
-                     }   
-                  } 
-               } 
-            }   
-
-            R = R_T.erase(R);
-         } else {
-               ++R;
-         } 
-      }
    }
 
    void R_P_P::R_A(const R_T_M& R) {
