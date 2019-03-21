@@ -609,12 +609,7 @@ namespace R {
       }
       R::R&R = R->R_C->R();
       {
-
              R.R_A.R(  R::bind(&R_P_P::R_A, R.get(), _1));
-
-
-
-
       }
    }
 
