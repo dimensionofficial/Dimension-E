@@ -1,1 +1,5 @@
 .vscode
+*.wast.hpp
+*.wasm
+*.DS_Store
+.vscode
