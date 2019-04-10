@@ -21,7 +21,7 @@ git clone https://github.com/dimensionofficial/Dimension-G.git
 git checkout -t origin/master  
 ```
 
-- Use Git from the Release 
+- Get Release Package 
 
 ```sh
 wget https://codeload.github.com/dimensionofficial/Dimension-G/tar.gz/v1.0.0  
