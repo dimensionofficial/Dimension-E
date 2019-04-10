@@ -4,7 +4,7 @@ Decentralized Application Service Network
 [Official Website](http://dimensionchain.io/)
 
 
-# PROJECT BRIEF  
+# Project Brief  
 
 DIMENSION is dedicated to building a new generation of decentralized blockchain application service networks. The underlying functions, such as general account and smart contract, solve the digital asset confirmation and programmable control, and ensure the security and transparency of transactions. Based on the technical scheme of data privacy protection and cross-chain interconnection, cross-chain consensus coexistence can be realized, DApp can be operated on the main chain, and data interconnection and sharing between main chains can be finally realized.
 
@@ -12,7 +12,21 @@ DIMENSION continuously explores and practices blockchain innovation technology. 
   
 DIMENSION can realize cross-chain interconnection through the adaptive framework. It adopts a number of privacy encryption technologies, such as fully homomorphic encryption, secure multi-party computing, verifiable algorithm, zero-knowledge proof, etc., to achieve data sharing and transaction on the blockchain, and maximize DIMENSION as the core value of the service network. Combined with decentralized community governance, it provides an efficient and convenient blockchain service network for commercial applications from multiple technical dimensions.
 
+### Getting the code with git
 
+- Use Git from the Terminal   
+
+```sh
+git clone https://github.com/dimensionofficial/Dimension-G.git
+git checkout -t origin/master  
+```
+
+- Use Git from the Release 
+
+```sh
+wget https://codeload.github.com/dimensionofficial/Dimension-G/tar.gz/v1.0.0  
+```
+  
 # Supported Operating Systems
 Dimension currently supports the following operating systems:
 
@@ -20,6 +34,9 @@ MacOS Darwin 10.12 and higher
 Ubuntu 16.04 / 18.04  
 Centos 7   
 Fedora 25 and higher  
+
+# RoadMap 
+[RoadMap](https://github.com/dimensionofficial/Dimension-G/blob/master/Roadmap.png)
 
 # License
 [MIT License](https://github.com/dimensionofficial/Dimension-G/blob/master/LICENSE)
