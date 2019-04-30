@@ -12,6 +12,19 @@ DIMENSION continuously explores and practices blockchain innovation technology. 
   
 DIMENSION can realize cross-chain interconnection through the adaptive framework. It adopts a number of privacy encryption technologies, such as fully homomorphic encryption, secure multi-party computing, verifiable algorithm, zero-knowledge proof, etc., to achieve data sharing and transaction on the blockchain, and maximize DIMENSION as the core value of the service network. Combined with decentralized community governance, it provides an efficient and convenient blockchain service network for commercial applications from multiple technical dimensions.
 
+# Dimension-E Aiming
+
+Dimension-E solves the problem of data monopoly in the gaming industry by using the three-tier structure system: universal account system, virtual asset trading system and virtual asset monetization system. It ensures the security and transparency of transactions and solves game company’s problem of lack of new business models, provides additional values to the virtual assets and helps developers, content providers, distributors, players, and other related parties reach a win-win situation.
+
+The game account system is the most basic service for players when entering the platform. The universal account system will use the game SDK to store game data on the blockchain. Players can anchor the universal account system to save their information, which ensures the system security and improves account privacy. A player's account now becomes privately owned instead of owned by any organization. On the one hand, this system reduces the cost of experience different game; on the other hand, the player can bind any virtual gaming assets with the distributed platform through the universal account.  By holding the private key and certificate, players can conveniently manage or transfer their assets to the exchange or the platform.
+
+Dimension-E coordinates with multiple gaming companies to build an external virtual trading platform, and players can open shops on it to sell virtual assets. The platform will satisfy players' demand for game equipment and asset, without excessive interference to the original in-game economy system, and use smart contracts to transfer different assets among different games. The transaction records are transparent,  immutable and easy to check. The platform will greatly improve players' gaming experience, protect their interests, and gradually establish an universal game economy.
+
+With the continuous growth of the ecosystem, the platform will enter the third phase of development, namely the monetization of virtual assets. By joining the Dimension-E platform, whether it is in the game industry or others, companies can issue tokens on the platform to monetize their digital assets such as reward points or intellectual properties. 
+
+Dimension-E is suitable for business that requires virtual assets, such as industries with loyalty programs, tickets, digital games, animations, or many others.
+
+
 ### Getting the code with git
 
 - Use Git from the Terminal   
@@ -34,6 +47,10 @@ MacOS Darwin 10.12 and higher
 Ubuntu 16.04 / 18.04  
 Centos 7   
 Fedora 25 and higher  
+
+# Dimension-E Architecture
+
+![DimensionEArchitecture](images/DimensionEArchitecture.jpg)
 
 # RoadMap 
 [RoadMap](https://github.com/dimensionofficial/Dimension-G/blob/master/Roadmap.png)
