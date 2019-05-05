@@ -94,6 +94,7 @@ namespace eosiosystem {
        *  stated.amount * 2 ^ ( weeks_since_launch/weeks_per_year)
        */
       double                      last_vote_weight = 0; /// the vote weight cast the last time the vote was updated
+      int64_t                    last_vote_stake = 0;
 
       /**
        * Total vote weight delegated to this voter.
@@ -109,7 +110,7 @@ namespace eosiosystem {
       uint64_t primary_key()const { return owner; }
 
       // explicit serialization macro is not necessary, used here only to improve compilation time
-      EOSLIB_SERIALIZE( voter_info, (owner)(proxy)(producers)(staked)(last_vote_weight)(proxied_vote_weight)(is_proxy)(reserved1)(reserved2)(reserved3) )
+      EOSLIB_SERIALIZE( voter_info, (owner)(proxy)(producers)(staked)(last_vote_weight)(proxied_vote_weight)(last_vote_stake)(is_proxy)(reserved1)(reserved2)(reserved3) )
    };
 
    typedef eosio::multi_index< N(voters), voter_info>  voters_table;
