@@ -37,6 +37,7 @@ Fedora 25 and higher
 # Dimension-E Architecture
 
 [Dimension-E Architecture](https://github.com/dimensionofficial/Dimension-E/blob/master/images/DimensionEArchitecture.jpg)
+![Dimension-E Architecture](Pic/Dimension-EArchitecture.jpg)
 
 # License
 [MIT License](https://github.com/dimensionofficial/Dimension-G/blob/master/LICENSE)
