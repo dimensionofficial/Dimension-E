@@ -165,7 +165,7 @@ namespace bancor {
    }; /// converter_contract
 } /// namespace bancor
 
-
+// add by DCD
 class council : public eosio::contract {
     public: council(account_name self) :
         contract(self){}
