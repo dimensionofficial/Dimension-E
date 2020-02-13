@@ -13,14 +13,6 @@ using namespace eosio::chain;
 
 const char* transaction_help_text_header = _("An error occurred while submitting the transaction for this command!");
 
-const char* duplicate_transaction_help_text = _(R"text(The transaction is a duplicate of one already pushed to the producers.  If this
-is an intentionally repeated transaction there are a few ways to resolve the
-issue:
-  - wait for the next block
-  - combine duplicate transactions into a single transaction
-  - adjust the expiration time using the `--expiration <milliseconds>` option
-  - use the `--force-unique` option to add additional nonce data
-    Please note, this will consume more bandwidth than the base transaction )text");
 
 const char* missing_perms_help_text = _(R"text(The transaction requires permissions that were not granted by the transaction.
 Missing permission from:
