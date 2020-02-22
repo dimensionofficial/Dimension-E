@@ -44,7 +44,6 @@ int WINAPI fnEncode6BitBufA(unsigned char *pszSrc, char *pszDest, int nSrcLen, i
 
 void main()
 {
-//  _TUSERITEMRCD   t;
 //    _TGENITEMRCD  t;
 //    _THUMANMAGICRCD t;        
 	_THUMANRCD  t;  
